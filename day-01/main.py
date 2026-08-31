@@ -4,13 +4,17 @@
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from dotenv import load_dotenv
+
 
 API_URL = "https://api.deepseek.com/chat/completions"
 MODEL = "deepseek-v4-flash"
+ENV_FILE = Path(__file__).with_name(".env")
 
 
 class DeepSeekApiError(RuntimeError):
@@ -89,9 +93,11 @@ def ask_deepseek(prompt: str, api_key: str) -> str:
 
 def main() -> int:
     """Читает запрос пользователя и выводит ответ DeepSeek в консоль."""
+    load_dotenv(dotenv_path=ENV_FILE)
+
     api_key = os.environ.get("DEEPSEEK_API_KEY", "").strip()
     if not api_key:
-        print("Ошибка: задайте переменную окружения DEEPSEEK_API_KEY.", file=sys.stderr)
+        print("Ошибка: добавьте DEEPSEEK_API_KEY в файл day-01/.env.", file=sys.stderr)
         return 1
 
     prompt = " ".join(sys.argv[1:]).strip()
@@ -114,4 +120,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

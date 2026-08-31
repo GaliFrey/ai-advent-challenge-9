@@ -2,27 +2,29 @@
 
 Минимальный CLI-клиент отправляет текстовый запрос в `deepseek-v4-flash`, получает ответ и выводит его в консоль.
 
-Для запуска достаточно Python 3.9 или новее. Внешние библиотеки не нужны.
+Для запуска нужен Python 3.10 или новее. Ключ автоматически загружается из локального файла `.env` с помощью `python-dotenv`.
 
 ## Подготовка
 
-1. Создайте API-ключ в [DeepSeek Platform](https://platform.deepseek.com/api_keys).
-2. Скопируйте шаблон локальных настроек:
+1. Создайте и активируйте виртуальное окружение, затем установите зависимость:
 
    ```bash
    cd day-01
+   python3 -m venv .venv
+   source .venv/bin/activate
+   python3 -m pip install -r requirements.txt
+   ```
+
+2. Создайте API-ключ в [DeepSeek Platform](https://platform.deepseek.com/api_keys).
+3. Скопируйте шаблон локальных настроек:
+
+   ```bash
    cp .env.example .env
    ```
 
-3. Замените `your_api_key_here` в `.env` настоящим ключом и загрузите его в окружение:
+4. Замените `your_api_key_here` в `.env` настоящим ключом.
 
-   ```bash
-   set -a
-   source .env
-   set +a
-   ```
-
-Файл `.env` исключён из Git. Не публикуйте и не показывайте API-ключ в видео.
+Выполнять `source .env` не нужно: программа сама загружает файл при запуске. `.env` исключён из Git — не публикуйте и не показывайте API-ключ в видео.
 
 ## Запуск
 
@@ -47,9 +49,10 @@ API — это набор правил, с помощью которых про�
 
 ## Что происходит в коде
 
-1. Ключ читается из переменной окружения `DEEPSEEK_API_KEY`.
-2. Программа отправляет `POST` на `https://api.deepseek.com/chat/completions`.
-3. В запросе используется модель `deepseek-v4-flash` с отключённым thinking mode — для первого короткого примера он не нужен.
-4. Ответ извлекается из `choices[0].message.content` и печатается в консоль.
+1. `python-dotenv` загружает `day-01/.env`, независимо от каталога, из которого запущена программа.
+2. Ключ читается из переменной окружения `DEEPSEEK_API_KEY`. Уже заданная системная переменная имеет приоритет над значением из `.env`.
+3. Программа отправляет `POST` на `https://api.deepseek.com/chat/completions`.
+4. В запросе используется модель `deepseek-v4-flash` с отключённым thinking mode — для первого короткого примера он не нужен.
+5. Ответ извлекается из `choices[0].message.content` и печатается в консоль.
 
-Документация: [первый API-запрос](https://api-docs.deepseek.com/) и [Chat Completions API](https://api-docs.deepseek.com/api/create-chat-completion/).
+Документация: [первый API-запрос](https://api-docs.deepseek.com/), [Chat Completions API](https://api-docs.deepseek.com/api/create-chat-completion/) и [python-dotenv](https://pypi.org/project/python-dotenv/).
