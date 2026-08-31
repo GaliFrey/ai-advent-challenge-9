@@ -7,6 +7,10 @@ chats/
 *.mkv
 *.webm
 
+# Локальные материалы задания и артефакты сдачи
+**/resources/*
+!**/resources/.gitkeep
+
 # Локальные секреты
 .env
 .env.*
