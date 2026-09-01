@@ -6,6 +6,7 @@
 
 - [День 0 — введение](day-00/README.md).
 - [День 1 — первый запрос к LLM через API](day-01/README.md).
+- [День 2 — управление форматом и длиной ответа](day-02/README.md).
 
 ## Структура
 
@@ -15,6 +16,10 @@ AI_Advent_Challenge/
 │   ├── README.md
 │   └── resources/
 ├── day-01/
+│   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-02/
 │   ├── README.md
 │   ├── resources/
 │   └── ...

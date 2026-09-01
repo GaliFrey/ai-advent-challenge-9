@@ -1,0 +1,12 @@
+[project]
+name = "ai-advent-day-02"
+version = "0.1.0"
+description = "Сравнение свободного и контролируемого ответов DeepSeek API"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv==1.2.3",
+]
+
+[tool.uv]
+package = false
