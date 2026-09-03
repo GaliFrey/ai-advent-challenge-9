@@ -1,0 +1,75 @@
+{
+  "experiment": "facts",
+  "temperature": 1.2,
+  "repeat": 2,
+  "request": {
+    "model": "deepseek-v4-flash",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Ты выполняешь задание на русском языке. Соблюдай указанный формат ответа."
+      },
+      {
+        "role": "user",
+        "content": "Исходные данные о вымышленной космической выставке:\nНазвание: Орбита.\nДата: 21 ноября.\nНачало: 10:30. Окончание: 17:00 того же дня.\nМесто: музей Вектор.\nВзрослый билет: 480 рублей. Детский билет: 260 рублей.\nВ группе 3 взрослых и 2 ребёнка.\nСкидка на общую стоимость билетов группы: 15%.\nИмя экскурсовода не указано.\n\nИзвлеки факты и выполни расчёты. Не дополняй исходные данные догадками.\nОбъект facts должен содержать ровно следующие поля:\n- name: название выставки, строка;\n- date: дата без добавления года, строка;\n- start и end: время в формате HH:MM, строки;\n- venue: место в формате «музей Вектор», строка без кавычек-ёлочек;\n- duration_minutes: продолжительность в минутах, число;\n- total_before_discount: стоимость всех билетов группы до скидки в рублях, число;\n- total_after_discount: стоимость всех билетов группы после скидки в рублях, число;\n- guide: имя экскурсовода или null, если оно неизвестно.\nВерни один JSON-объект без Markdown-ограждений и текста за его пределами.\nВерхний уровень JSON должен содержать только ключ facts.\nТворческие дополнения не нужны."
+      }
+    ],
+    "thinking": {
+      "type": "disabled"
+    },
+    "temperature": 1.2,
+    "top_p": 1,
+    "max_tokens": 1600,
+    "stream": false
+  },
+  "started_at": "2026-09-03T12:59:54.015378+00:00",
+  "status": "ok",
+  "response": {
+    "id": "37aa5521-da38-40ba-b113-bc67e6b18e2b",
+    "object": "chat.completion",
+    "created": 1788440394,
+    "model": "deepseek-v4-flash",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\"facts\": {\n  \"name\": \"Орбита\",\n  \"date\": \"21 ноября\",\n  \"start\": \"10:30\",\n  \"end\": \"17:00\",\n  \"venue\": \"музей Вектор\",\n  \"duration_minutes\": 390,\n  \"total_before_discount\": 1960,\n  \"total_after_discount\": 1666,\n  \"guide\": null\n}}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 377,
+      "completion_tokens": 91,
+      "total_tokens": 468,
+      "prompt_tokens_details": {
+        "cached_tokens": 256
+      },
+      "prompt_cache_hit_tokens": 256,
+      "prompt_cache_miss_tokens": 121
+    },
+    "system_fingerprint": "a26a7955944dc5c60445bff77fac9c8e"
+  },
+  "validation": {
+    "json_valid": true,
+    "correct_fields": [
+      "name",
+      "date",
+      "start",
+      "end",
+      "venue",
+      "duration_minutes",
+      "total_before_discount",
+      "total_after_discount",
+      "guide"
+    ],
+    "facts_total": 9,
+    "facts_correct": true,
+    "creative_shape": null,
+    "passed": true,
+    "errors": []
+  },
+  "elapsed_seconds": 1.061
+}
