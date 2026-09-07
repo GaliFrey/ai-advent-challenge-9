@@ -1,0 +1,105 @@
+Screen {
+    background: #101722;
+    color: #dbe4f0;
+}
+
+#brand {
+    height: 3;
+    padding: 1 2 0 2;
+    background: #172232;
+}
+
+#title {
+    width: 20;
+    color: #8ed6dc;
+    text-style: bold;
+}
+
+#subtitle {
+    width: 1fr;
+    text-align: right;
+    color: #899ab2;
+}
+
+#sessions {
+    height: 1fr;
+    padding: 1 1 0 1;
+}
+
+.session-panel {
+    width: 1fr;
+    min-width: 48;
+    margin: 0 1;
+    padding: 1;
+    border: round #34465d;
+    background: #141e2c;
+}
+
+.session-panel:focus-within {
+    border: round #79c5d8;
+}
+
+.session-title {
+    height: 2;
+    color: #8ed6dc;
+    text-style: bold;
+}
+
+.chat {
+    height: 1fr;
+    min-height: 10;
+    padding: 0 1;
+    background: #101925;
+    border: solid #26384d;
+}
+
+.stats {
+    height: 7;
+    margin-top: 1;
+    padding: 0 1;
+    color: #aebed3;
+    background: #192536;
+}
+
+Input {
+    margin-top: 1;
+    border: tall #34465d;
+    background: #101925;
+}
+
+Input:focus {
+    border: tall #79c5d8;
+}
+
+Button {
+    width: 100%;
+    min-width: 12;
+    margin-top: 1;
+    border: none;
+}
+
+Button.-primary {
+    background: #386679;
+    color: #f1f8fa;
+}
+
+Button.-primary:hover {
+    background: #467d92;
+}
+
+.status {
+    height: 2;
+    padding: 0 1;
+    color: #8ed6dc;
+}
+
+#legend {
+    height: 3;
+    padding: 0 2;
+    color: #8294aa;
+}
+
+Footer {
+    background: #172232;
+    color: #9dafc6;
+}
