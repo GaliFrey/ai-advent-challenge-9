@@ -11,6 +11,10 @@ chats/
 **/resources/*
 !**/resources/.gitkeep
 
+# Локальные истории диалогов
+**/data/*.json
+!**/data/.gitkeep
+
 # Локальные секреты
 .env
 .env.*
