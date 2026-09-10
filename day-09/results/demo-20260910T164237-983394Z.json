@@ -1,0 +1,684 @@
+{
+  "created_at": "2026-09-10T16:42:37.983394+00:00",
+  "kind": "day-09-summary-comparison",
+  "outcome": "completed",
+  "configuration": {
+    "model": "deepseek-v4-flash",
+    "temperature": 0.0,
+    "max_tokens": 1200,
+    "summary_max_tokens": 1200,
+    "keep_recent_messages": 6,
+    "summary_interval_messages": 10
+  },
+  "actual_api_attempts": 35,
+  "savings_percent": -10.717230008244023,
+  "turns": [
+    {
+      "turn": 1,
+      "kind": "dialogue",
+      "user_message": "Код проекта — ORBITA-7429. Мы готовим закрытую отраслевую конференцию; код важно не переводить и не сокращать. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 136,
+            "output_tokens": 7,
+            "total_tokens": 143
+          },
+          "elapsed_seconds": 1.1440780539996922,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 136,
+            "output_tokens": 7,
+            "total_tokens": 143
+          },
+          "elapsed_seconds": 0.9450155240047025,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "kind": "dialogue",
+      "user_message": "Предварительная дата конференции — 18.10.2026. Монтаж планировали начать утром предыдущего дня. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 196,
+            "output_tokens": 7,
+            "total_tokens": 203
+          },
+          "elapsed_seconds": 0.6280499659987981,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 196,
+            "output_tokens": 7,
+            "total_tokens": 203
+          },
+          "elapsed_seconds": 0.7532420970019302,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "kind": "dialogue",
+      "user_message": "Первоначальный предельный бюджет — 450000 рублей. Резерв уже входит в эту сумму. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 247,
+            "output_tokens": 7,
+            "total_tokens": 254
+          },
+          "elapsed_seconds": 1.0357856129994616,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 247,
+            "output_tokens": 7,
+            "total_tokens": 254
+          },
+          "elapsed_seconds": 0.7247759269957896,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 4,
+      "kind": "dialogue",
+      "user_message": "Для площадки обязательны безбарьерный вход, лифт и возможность подключить две независимые линии интернета. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 302,
+            "output_tokens": 7,
+            "total_tokens": 309
+          },
+          "elapsed_seconds": 1.1135192380024819,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 302,
+            "output_tokens": 7,
+            "total_tokens": 309
+          },
+          "elapsed_seconds": 0.8657854030025192,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 5,
+      "kind": "dialogue",
+      "user_message": "Первоначально техническим подрядчиком выбрали компанию «Атлас». Договор пока не подписан. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 359,
+            "output_tokens": 7,
+            "total_tokens": 366
+          },
+          "elapsed_seconds": 0.8545774919984979,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 359,
+            "output_tokens": 7,
+            "total_tokens": 366
+          },
+          "elapsed_seconds": 0.9838227450018167,
+          "finish_reason": "stop",
+          "compression": {
+            "version": 1,
+            "summarized_messages": 4,
+            "remaining_raw_messages": 6,
+            "summary": "Код проекта: ORBITA-7429 (не переводить и не сокращать). Готовится закрытая отраслевая конференция. Предварительная дата конференции: 18.10.2026. Монтаж планировали начать утром предыдущего дня (17.10.2026).",
+            "usage": {
+              "input_tokens": 286,
+              "output_tokens": 73,
+              "total_tokens": 359
+            },
+            "elapsed_seconds": 0.9606795930012595
+          },
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 6,
+      "kind": "dialogue",
+      "user_message": "В программе планируются регистрация, три доклада, дискуссия и вечерний нетворкинг. Имена спикеров пока не утверждены. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 424,
+            "output_tokens": 7,
+            "total_tokens": 431
+          },
+          "elapsed_seconds": 1.1847864250012208,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 423,
+            "output_tokens": 7,
+            "total_tokens": 430
+          },
+          "elapsed_seconds": 0.5892403140023816,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 7,
+      "kind": "dialogue",
+      "user_message": "Дата изменилась: 18.10.2026 отменена, актуальная дата — 26.10.2026. Монтаж остаётся за день до события. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 494,
+            "output_tokens": 7,
+            "total_tokens": 501
+          },
+          "elapsed_seconds": 0.6092472250020364,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 493,
+            "output_tokens": 7,
+            "total_tokens": 500
+          },
+          "elapsed_seconds": 1.0656470800022362,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 8,
+      "kind": "dialogue",
+      "user_message": "Бюджет пересмотрен: лимит 450000 рублей отменён, новый предельный бюджет — 510000 рублей, включая резерв. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 557,
+            "output_tokens": 7,
+            "total_tokens": 564
+          },
+          "elapsed_seconds": 0.8952902910023113,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 556,
+            "output_tokens": 7,
+            "total_tokens": 563
+          },
+          "elapsed_seconds": 0.945539116000873,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 9,
+      "kind": "dialogue",
+      "user_message": "Компания «Атлас» отказалась. Актуальный технический подрядчик — компания «Меридиан». Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 614,
+            "output_tokens": 7,
+            "total_tokens": 621
+          },
+          "elapsed_seconds": 0.9451890350028407,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 613,
+            "output_tokens": 7,
+            "total_tokens": 620
+          },
+          "elapsed_seconds": 0.7987997289965278,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 10,
+      "kind": "dialogue",
+      "user_message": "Выбор кейтеринга остаётся открытым вопросом. Все остальные перечисленные решения считаются актуальными. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 670,
+            "output_tokens": 7,
+            "total_tokens": 677
+          },
+          "elapsed_seconds": 1.2749101580047864,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 669,
+            "output_tokens": 7,
+            "total_tokens": 676
+          },
+          "elapsed_seconds": 0.770355089000077,
+          "finish_reason": "stop",
+          "compression": {
+            "version": 2,
+            "summarized_messages": 10,
+            "remaining_raw_messages": 6,
+            "summary": "Код проекта: ORBITA-7429 (не переводить и не сокращать). Готовится закрытая отраслевая конференция. Актуальная дата конференции: 26.10.2026; дата 18.10.2026 отменена. Монтаж — за день до события, т.е. 25.10.2026 (ранее планировался 17.10.2026). Первоначальный предельный бюджет — 450000 рублей; резерв уже входит в эту сумму. Для площадки обязательны: безбарьерный вход, лифт, возможность подключить две независимые линии интернета. Первоначально техническим подрядчиком выбрана компания «Атлас»; договор пока не подписан. В программе планируются: регистрация, три доклада, дискуссия, вечерний нетворкинг. Имена спикеров пока не утверждены.",
+            "usage": {
+              "input_tokens": 565,
+              "output_tokens": 215,
+              "total_tokens": 780
+            },
+            "elapsed_seconds": 1.6110214700020151
+          },
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 11,
+      "kind": "dialogue",
+      "user_message": "На площадке предусмотрены отдельные зоны регистрации, гардероба, основной сцены и переговоров. Эта информация нужна для планирования, но не изменяет дату, бюджет или подрядчика. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 748,
+            "output_tokens": 7,
+            "total_tokens": 755
+          },
+          "elapsed_seconds": 0.5748182780007483,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 591,
+            "output_tokens": 7,
+            "total_tokens": 598
+          },
+          "elapsed_seconds": 0.7587855069941725,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 12,
+      "kind": "dialogue",
+      "user_message": "Участников будут регистрировать по спискам, а бейджи напечатают заранее. Формат приглашений и точное время открытия регистрации пока обсуждаются. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 821,
+            "output_tokens": 7,
+            "total_tokens": 828
+          },
+          "elapsed_seconds": 0.9314502840061323,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 664,
+            "output_tokens": 7,
+            "total_tokens": 671
+          },
+          "elapsed_seconds": 0.6279403829976218,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 13,
+      "kind": "dialogue",
+      "user_message": "Для докладчиков подготовят общий шаблон презентации и технический прогон. Ответственным за сбор материалов назначен координатор программы. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 882,
+            "output_tokens": 7,
+            "total_tokens": 889
+          },
+          "elapsed_seconds": 1.067003301999648,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 725,
+            "output_tokens": 7,
+            "total_tokens": 732
+          },
+          "elapsed_seconds": 0.7378586860068026,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 14,
+      "kind": "dialogue",
+      "user_message": "После основной программы планируется неформальное общение. Музыкальное сопровождение допустимо только на умеренной громкости по требованиям площадки. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 942,
+            "output_tokens": 7,
+            "total_tokens": 949
+          },
+          "elapsed_seconds": 0.9675829469997552,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 785,
+            "output_tokens": 7,
+            "total_tokens": 792
+          },
+          "elapsed_seconds": 0.9637314959982177,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 15,
+      "kind": "dialogue",
+      "user_message": "Финальная сверка: прежние дата, бюджет и подрядчик отменены; ранее названные актуальные значения остаются в силе. Новых решений по кейтерингу пока нет. Запомни сведения и ответь только: ПРИНЯТО.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 1018,
+            "output_tokens": 7,
+            "total_tokens": 1025
+          },
+          "elapsed_seconds": 1.19133282200346,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРИНЯТО.",
+          "usage": {
+            "input_tokens": 861,
+            "output_tokens": 7,
+            "total_tokens": 868
+          },
+          "elapsed_seconds": 1.1572861620006734,
+          "finish_reason": "stop",
+          "compression": {
+            "version": 3,
+            "summarized_messages": 10,
+            "remaining_raw_messages": 6,
+            "summary": "Код проекта: ORBITA-7429 (не переводить и не сокращать). Готовится закрытая отраслевая конференция. Актуальная дата конференции: 26.10.2026; дата 18.10.2026 отменена. Монтаж — за день до события, т.е. 25.10.2026 (ранее планировался 17.10.2026). Первоначальный предельный бюджет 450000 рублей отменён; актуальный предельный бюджет — 510000 рублей, включая резерв. Для площадки обязательны: безбарьерный вход, лифт, возможность подключить две независимые линии интернета. Первоначальный технический подрядчик «Атлас» отказался; актуальный технический подрядчик — компания «Меридиан»; договор пока не подписан. В программе планируются: регистрация, три доклада, дискуссия, вечерний нетворкинг. Имена спикеров пока не утверждены. Выбор кейтеринга остаётся открытым вопросом. На площадке предусмотрены отдельные зоны регистрации, гардероба, основной сцены и переговоров. Участников будут регистрировать по спискам, бейджи напечатают заранее. Формат приглашений и точное время открытия регистрации пока обсуждаются.",
+            "usage": {
+              "input_tokens": 736,
+              "output_tokens": 327,
+              "total_tokens": 1063
+            },
+            "elapsed_seconds": 2.028258537997317
+          },
+          "compression_error": null
+        }
+      }
+    },
+    {
+      "turn": 16,
+      "kind": "quality_check",
+      "user_message": "Восстанови актуальные данные из нашего диалога. Ответь одной строкой в формате: ПРОЕКТ=<код>; ДАТА=<дд.мм.гггг>; БЮДЖЕТ=<число>; ПОДРЯДЧИК=<название>; ОТКРЫТЫЙ_ВОПРОС=<текст>. Не добавляй пояснений.",
+      "results": {
+        "full": {
+          "ok": true,
+          "answer": "ПРОЕКТ=ORBITA-7429; ДАТА=26.10.2026; БЮДЖЕТ=510000; ПОДРЯДЧИК=Меридиан; ОТКРЫТЫЙ_ВОПРОС=кейтеринг",
+          "usage": {
+            "input_tokens": 1124,
+            "output_tokens": 65,
+            "total_tokens": 1189
+          },
+          "elapsed_seconds": 1.049578140002268,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        },
+        "summary": {
+          "ok": true,
+          "answer": "ПРОЕКТ=ORBITA-7429; ДАТА=26.10.2026; БЮДЖЕТ=510000; ПОДРЯДЧИК=Меридиан; ОТКРЫТЫЙ_ВОПРОС=кейтеринг",
+          "usage": {
+            "input_tokens": 752,
+            "output_tokens": 65,
+            "total_tokens": 817
+          },
+          "elapsed_seconds": 0.7154400159997749,
+          "finish_reason": "stop",
+          "compression": null,
+          "compression_error": null
+        }
+      }
+    }
+  ],
+  "agents": {
+    "full": {
+      "stats": {
+        "chat_attempts": 16,
+        "successful_chat_requests": 16,
+        "summary_attempts": 0,
+        "successful_summary_requests": 0,
+        "chat_input_tokens": 9534,
+        "chat_output_tokens": 170,
+        "summary_input_tokens": 0,
+        "summary_output_tokens": 0,
+        "last_prompt_tokens": 1124,
+        "last_elapsed_seconds": 1.049578140002268,
+        "last_finish_reason": "stop",
+        "last_error": null,
+        "last_summary_error": null,
+        "chat_total_tokens": 9704,
+        "summary_total_tokens": 0,
+        "total_tokens": 9704
+      },
+      "memory": {
+        "total_message_count": 32,
+        "raw_message_count": 32,
+        "summarized_message_count": 0,
+        "summary": null
+      },
+      "quality": {
+        "score": 5,
+        "total": 5,
+        "checks": [
+          [
+            "проект",
+            true
+          ],
+          [
+            "актуальная дата",
+            true
+          ],
+          [
+            "актуальный бюджет",
+            true
+          ],
+          [
+            "актуальный подрядчик",
+            true
+          ],
+          [
+            "открытый вопрос",
+            true
+          ]
+        ]
+      }
+    },
+    "summary": {
+      "stats": {
+        "chat_attempts": 16,
+        "successful_chat_requests": 16,
+        "summary_attempts": 3,
+        "successful_summary_requests": 3,
+        "chat_input_tokens": 8372,
+        "chat_output_tokens": 170,
+        "summary_input_tokens": 1587,
+        "summary_output_tokens": 615,
+        "last_prompt_tokens": 752,
+        "last_elapsed_seconds": 0.7154400159997749,
+        "last_finish_reason": "stop",
+        "last_error": null,
+        "last_summary_error": null,
+        "chat_total_tokens": 8542,
+        "summary_total_tokens": 2202,
+        "total_tokens": 10744
+      },
+      "memory": {
+        "total_message_count": 32,
+        "raw_message_count": 8,
+        "summarized_message_count": 24,
+        "summary": "Код проекта: ORBITA-7429 (не переводить и не сокращать). Готовится закрытая отраслевая конференция. Актуальная дата конференции: 26.10.2026; дата 18.10.2026 отменена. Монтаж — за день до события, т.е. 25.10.2026 (ранее планировался 17.10.2026). Первоначальный предельный бюджет 450000 рублей отменён; актуальный предельный бюджет — 510000 рублей, включая резерв. Для площадки обязательны: безбарьерный вход, лифт, возможность подключить две независимые линии интернета. Первоначальный технический подрядчик «Атлас» отказался; актуальный технический подрядчик — компания «Меридиан»; договор пока не подписан. В программе планируются: регистрация, три доклада, дискуссия, вечерний нетворкинг. Имена спикеров пока не утверждены. Выбор кейтеринга остаётся открытым вопросом. На площадке предусмотрены отдельные зоны регистрации, гардероба, основной сцены и переговоров. Участников будут регистрировать по спискам, бейджи напечатают заранее. Формат приглашений и точное время открытия регистрации пока обсуждаются."
+      },
+      "quality": {
+        "score": 5,
+        "total": 5,
+        "checks": [
+          [
+            "проект",
+            true
+          ],
+          [
+            "актуальная дата",
+            true
+          ],
+          [
+            "актуальный бюджет",
+            true
+          ],
+          [
+            "актуальный подрядчик",
+            true
+          ],
+          [
+            "открытый вопрос",
+            true
+          ]
+        ]
+      }
+    }
+  }
+}
