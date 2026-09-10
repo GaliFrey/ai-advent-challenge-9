@@ -1,0 +1,15 @@
+[project]
+name = "ai-advent-day-08"
+version = "0.1.0"
+description = "Контролируемый эксперимент с ростом токенов и переполнением контекста"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.3",
+    "rich>=14.2.0",
+    "tiktoken>=0.11.0",
+]
+
+[tool.uv]
+package = false
