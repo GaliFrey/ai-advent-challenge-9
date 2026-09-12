@@ -13,6 +13,8 @@
 - [День 6 — два независимых агента](day-06/README.md).
 - [День 7 — постоянная история двух агентов](day-07/README.md).
 - [День 8 — рост токенов и переполнение контекста](day-08/README.md).
+- [День 9 — сжатие истории через summary](day-09/README.md).
+- [День 10 — Sliding Window, Sticky Facts и Branching](day-10/README.md).
 
 ## Структура
 
@@ -52,6 +54,14 @@ AI_Advent_Challenge/
 │   ├── resources/
 │   └── ...
 ├── day-08/
+│   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-09/
+│   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-10/
 │   ├── README.md
 │   ├── resources/
 │   └── ...
