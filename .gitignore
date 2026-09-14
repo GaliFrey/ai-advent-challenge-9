@@ -12,7 +12,7 @@ chats/
 !**/resources/.gitkeep
 
 # Локальные истории диалогов
-**/data/*.json
+**/data/**/*.json
 !**/data/.gitkeep
 
 # Локальные секреты

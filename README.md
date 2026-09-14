@@ -15,6 +15,7 @@
 - [День 8 — рост токенов и переполнение контекста](day-08/README.md).
 - [День 9 — сжатие истории через summary](day-09/README.md).
 - [День 10 — Sliding Window, Sticky Facts и Branching](day-10/README.md).
+- [День 11 — явные слои памяти агента](day-11/README.md).
 
 ## Структура
 
@@ -63,6 +64,11 @@ AI_Advent_Challenge/
 │   └── ...
 ├── day-10/
 │   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-11/
+│   ├── README.md
+│   ├── data/
 │   ├── resources/
 │   └── ...
 ├── AGENTS.md
