@@ -16,6 +16,7 @@
 - [День 9 — сжатие истории через summary](day-09/README.md).
 - [День 10 — Sliding Window, Sticky Facts и Branching](day-10/README.md).
 - [День 11 — явные слои памяти агента](day-11/README.md).
+- [День 12 — профили пользователя](day-12/README.md).
 
 ## Структура
 
@@ -67,6 +68,11 @@ AI_Advent_Challenge/
 │   ├── resources/
 │   └── ...
 ├── day-11/
+│   ├── README.md
+│   ├── data/
+│   ├── resources/
+│   └── ...
+├── day-12/
 │   ├── README.md
 │   ├── data/
 │   ├── resources/
