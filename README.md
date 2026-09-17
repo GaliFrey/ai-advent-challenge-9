@@ -17,6 +17,7 @@
 - [День 10 — Sliding Window, Sticky Facts и Branching](day-10/README.md).
 - [День 11 — явные слои памяти агента](day-11/README.md).
 - [День 12 — профили пользователя](day-12/README.md).
+- [День 13 — конечный автомат состояния задачи](day-13/README.md).
 
 ## Структура
 
@@ -73,6 +74,11 @@ AI_Advent_Challenge/
 │   ├── resources/
 │   └── ...
 ├── day-12/
+│   ├── README.md
+│   ├── data/
+│   ├── resources/
+│   └── ...
+├── day-13/
 │   ├── README.md
 │   ├── data/
 │   ├── resources/
