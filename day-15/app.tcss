@@ -1,0 +1,41 @@
+Screen { background: #0e1621; color: #dce7f3; }
+#brand { height: 3; padding: 1 2; background: #172638; color: #8edbe2; text-style: bold; }
+#goal-bar { height: 5; padding: 1 2; background: #121f2e; }
+#goal { width: 1fr; height: 3; }
+#goal-bar Button { width: auto; min-width: 16; height: 3; margin-left: 1; border: none; }
+#cancel-new { display: none; min-width: 10; }
+#task-label { width: 8; height: 3; padding: 1 1 0 1; color: #9fb3c8; }
+#task-select { width: 48; height: 3; }
+#lifecycle { height: 5; padding: 1 2; background: #101b28; }
+.phase { width: 1fr; height: 3; margin-right: 1; border: none; background: #1c2a3a; color: #8295aa; }
+.phase.active { background: #356c78; color: #f4fbfc; text-style: bold; }
+.phase.viewing { outline: solid #e7c76f; }
+#run-route { height: 3; padding: 0 2; background: #101b28; color: #a9d5dc; scrollbar-size-horizontal: 1; }
+#transition-bar { height: 5; padding: 0 2 1 2; background: #101b28; }
+#transition-bar Button { width: auto; min-width: 14; height: 3; margin-right: 1; border: none; }
+#primary-transition, #secondary-transition { min-width: 19; }
+#pause, #resume { min-width: 13; }
+#api-loading { display: none; width: 4; height: 3; color: #8edbe2; }
+#api-status { width: 20; height: 3; padding: 1 1 0 0; color: #8edbe2; }
+#guard-hint { width: 1fr; height: 3; padding: 1 0 0 1; color: #e7c76f; }
+#workspace { height: 1fr; padding: 1; }
+#chat-panel { width: 3fr; margin-right: 1; padding: 1; border: round #344a61; background: #142131; }
+#details-panel { width: 2fr; padding: 1; border: round #344a61; background: #142131; }
+.panel-title { height: 2; color: #8edbe2; text-style: bold; }
+#run-header { height: 3; }
+#chat-title { width: 1fr; }
+#run-header Button { width: 7; height: 2; margin-left: 1; border: none; }
+#chat { height: 1fr; min-height: 12; padding: 1; background: #0f1925; border: solid #263b50; }
+#message-bar { height: 5; padding-top: 1; }
+#message { width: 1fr; height: 3; }
+#send { width: 16; height: 3; margin-left: 1; border: none; }
+#details-tabs { height: 1fr; }
+TabPane { padding: 0; }
+#state, #artifact, #prompt { height: 1fr; padding: 1; background: #0f1925; border: solid #263b50; scrollbar-size-vertical: 1; }
+#transitions { height: 1fr; padding: 1; background: #0f1925; border: solid #263b50; scrollbar-size-vertical: 1; }
+#manual-transition { height: 5; padding-top: 1; }
+#target-label { width: 7; height: 3; padding: 1 1 0 1; color: #9fb3c8; }
+#target-phase { width: 1fr; height: 3; margin-right: 1; }
+#request-transition { width: 16; height: 3; border: none; }
+#status { height: 2; padding: 0 2; color: #8edbe2; }
+Footer { background: #172638; color: #a4b5c8; }
