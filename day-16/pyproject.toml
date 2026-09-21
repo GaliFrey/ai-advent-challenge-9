@@ -1,0 +1,12 @@
+[project]
+name = "ai-advent-day-16"
+version = "0.1.0"
+description = "TUI browser for tools exposed by public MCP servers"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=2.2.0",
+    "textual>=8.2.8",
+]
+
+[tool.uv]
+package = false

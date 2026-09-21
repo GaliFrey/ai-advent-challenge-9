@@ -1,0 +1,16 @@
+Screen { background: $surface; }
+#brand { height: 3; padding: 1 2; text-style: bold; color: $accent; }
+#controls { height: auto; padding: 0 2; }
+#server { width: 1fr; }
+#fetch { width: 26; margin-left: 1; }
+#url { height: auto; min-height: 1; padding: 0 3; color: $text-muted; }
+#progress { height: auto; min-height: 3; padding: 1 3; }
+#loading { width: 6; height: 1; margin-right: 1; }
+#status { width: 1fr; height: auto; }
+#metrics { height: 2; padding: 0 3; color: $text-muted; }
+#workspace { height: 1fr; padding: 0 2 1 2; }
+#tool-panel { width: 2fr; min-width: 24; border: round $primary; }
+#detail-panel { width: 3fr; margin-left: 1; border: round $primary; }
+.panel-title { height: 2; padding: 0 1; text-style: bold; color: $accent; }
+#tools { height: 1fr; border: none; }
+#details { height: 1fr; padding: 0 1; }
