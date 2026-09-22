@@ -1,0 +1,94 @@
+{
+  "completed_at": "2026-09-21T20:50:00.710625Z",
+  "crawler": {
+    "delay_seconds": 0.5,
+    "max_pages": null,
+    "retries": 1,
+    "timeout_seconds": 15.0,
+    "user_agent": "websoft-devkit/0.1 (+local documentation snapshot)"
+  },
+  "deleted": [],
+  "deleted_count": 0,
+  "error_count": 13,
+  "errors": [
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592656"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592650"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5652176266853304532"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5652176266853304533"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5652176266853304534"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5656641661996331262"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592655"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592692"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592647"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5652176266853304428"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276892448878615"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5620276905286592735"
+    },
+    {
+      "error": "HTTPError: HTTP Error 500: Internal Server Error",
+      "http_status": 500,
+      "url": "http://docs.datex.ru/article.htm?id=5652176266853304537"
+    }
+  ],
+  "page_count": 1774,
+  "pending_count": 0,
+  "product_build": null,
+  "product_version": null,
+  "published": true,
+  "resumed_from_snapshot_id": null,
+  "schema_version": 1,
+  "snapshot_id": "20260921T203254.308820Z",
+  "source_id": "public-docs",
+  "stale_article_ids": [],
+  "stale_count": 0,
+  "start_url": "http://docs.datex.ru/article.htm?id=5791375928854454910",
+  "started_at": "2026-09-21T20:32:54.308820Z",
+  "status": "complete_with_errors"
+}
