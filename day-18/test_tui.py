@@ -56,6 +56,7 @@ class TuiTests(unittest.IsolatedAsyncioTestCase):
             self.assertIn("LLM RESPONSE 1", {event["event"] for event in events})
             self.assertIn("MCP RESULT", {event["event"] for event in events})
             self.assertIn("ANSWER DISPLAYED", {event["event"] for event in events})
+            self.assertTrue(all(event["time"].endswith("+03:00") for event in events))
 
 
 if __name__ == "__main__":

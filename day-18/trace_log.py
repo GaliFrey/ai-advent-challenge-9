@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
+from zoneinfo import ZoneInfo
 
 
 class SessionLog:
@@ -21,7 +22,7 @@ class SessionLog:
     def append(self, label: str, data: object, server: str) -> None:
         event = {
             "sequence": self.sequence + 1,
-            "time": datetime.now(timezone.utc).isoformat(),
+            "time": datetime.now(ZoneInfo("Europe/Kirov")).isoformat(),
             "server": server,
             "event": label,
             "data": data,

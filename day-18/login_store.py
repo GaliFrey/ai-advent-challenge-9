@@ -7,6 +7,16 @@ import sqlite3
 from contextlib import closing
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+
+DISPLAY_ZONE = ZoneInfo("Europe/Kirov")
+
+
+def display_time(value: str | None) -> str | None:
+    if value is None:
+        return None
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(DISPLAY_ZONE).isoformat(timespec="seconds")
 
 
 def database_path() -> Path:
@@ -75,9 +85,11 @@ def recent_logins(path: Path, hours: int = 1, limit: int = 50) -> dict:
         ).fetchall()
         last_collect = metadata(db, "last_success")
     return {
-        "period_hours": hours, "timezone": "UTC", "since": since, "until": until,
-        "total": total, "truncated": total > limit, "logins": [dict(row) for row in rows],
-        "last_collection": last_collect,
+        "period_hours": hours, "timezone": DISPLAY_ZONE.key,
+        "since": display_time(since), "until": display_time(until),
+        "total": total, "truncated": total > limit,
+        "logins": [{**dict(row), "occurred_at": display_time(row["occurred_at"])} for row in rows],
+        "last_collection": display_time(last_collect),
     }
 
 
@@ -99,9 +111,11 @@ def login_summary(path: Path, hours: int = 24) -> dict:
         ).fetchall()
         last_collect = metadata(db, "last_success")
     return {
-        "period_hours": hours, "timezone": "UTC", "since": since, "until": until,
+        "period_hours": hours, "timezone": DISPLAY_ZONE.key,
+        "since": display_time(since), "until": display_time(until),
         "total": total, "unique_ips": unique_ips, "by_user": [dict(row) for row in users],
-        "by_hour": [dict(row) for row in hours_utc], "last_collection": last_collect,
+        "by_hour": [{"hour": display_time(row["hour"]), "count": row["count"]} for row in hours_utc],
+        "last_collection": display_time(last_collect),
     }
 
 
@@ -111,5 +125,6 @@ def collector_status(path: Path) -> dict:
         first = db.execute("SELECT min(occurred_at) FROM logins").fetchone()[0]
         last = db.execute("SELECT max(occurred_at) FROM logins").fetchone()[0]
         success = metadata(db, "last_success")
-    return {"source": "systemd journal, ssh.service Accepted events", "timezone": "UTC", "total_saved": count,
-            "first_login": first, "last_login": last, "last_collection": success}
+    return {"source": "systemd journal, ssh.service Accepted events", "timezone": DISPLAY_ZONE.key,
+            "total_saved": count, "first_login": display_time(first),
+            "last_login": display_time(last), "last_collection": display_time(success)}

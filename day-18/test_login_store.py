@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import collect
-from login_store import collector_status, login_summary, recent_logins
+from login_store import collector_status, display_time, login_summary, recent_logins
 
 
 def journal_entry(cursor: str, message: str) -> str:
@@ -45,11 +45,18 @@ class CollectionTests(unittest.TestCase):
             self.assertEqual(recent["total"], 2)
             self.assertEqual({item["username"] for item in recent["logins"]}, {"bob", "alice"})
             self.assertEqual({item["ip"] for item in recent["logins"]}, {"192.0.2.1", "2001:db8::1"})
+            self.assertEqual(recent["timezone"], "Europe/Kirov")
+            self.assertTrue(all(item["occurred_at"].endswith("+03:00") for item in recent["logins"]))
             self.assertTrue(recent["last_collection"])
             summary = login_summary(path)
             self.assertEqual(summary["total"], 2)
             self.assertEqual(summary["unique_ips"], 2)
+            self.assertEqual(summary["timezone"], "Europe/Kirov")
+            self.assertTrue(all(item["hour"].endswith("+03:00") for item in summary["by_hour"]))
             self.assertEqual(collector_status(path)["total_saved"], 2)
+
+    def test_utc_storage_time_is_presented_in_kirov_time(self) -> None:
+        self.assertEqual(display_time("2026-09-23T16:22:17+00:00"), "2026-09-23T19:22:17+03:00")
 
     def test_invalid_window_and_limit(self) -> None:
         with self.assertRaises(ValueError):

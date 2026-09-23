@@ -112,7 +112,6 @@ AI_Advent_Challenge/
 │   ├── README.md
 │   ├── deploy/
 │   ├── resources/
-│   ├── sessions/
 │   └── ...
 ├── AGENTS.md
 ├── .gitignore

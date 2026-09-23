@@ -10,7 +10,7 @@ from mcp.server.mcpserver.exceptions import ToolError
 import login_store
 
 
-server = MCPServer("day-18-ssh-logins", instructions="Read saved SSH login records. Times are UTC. Never infer that a missing record proves no login occurred when collection is stale.")
+server = MCPServer("day-18-ssh-logins", instructions="Read saved SSH login records. Returned times are Europe/Kirov (UTC+03:00). Never infer that a missing record proves no login occurred when collection is stale.")
 
 
 @server.tool(name="ssh_recent_logins")
@@ -24,7 +24,7 @@ def ssh_recent_logins(hours: int = 1, limit: int = 50) -> dict:
 
 @server.tool(name="ssh_login_summary")
 def ssh_login_summary(hours: int = 24) -> dict:
-    """Count saved successful SSH authentications in the last 1–168 hours by user and UTC hour."""
+    """Count saved successful SSH authentications in the last 1–168 hours by user and Europe/Kirov hour."""
     try:
         return login_store.login_summary(login_store.database_path(), hours)
     except (ValueError, OSError, sqlite3.DatabaseError) as error:

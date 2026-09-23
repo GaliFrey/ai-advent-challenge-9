@@ -14,7 +14,7 @@
 сохраняет события `Accepted` в отдельную SQLite-базу. Курсор журнала
 сохраняется в той же базе: следующий запуск читает только новые записи.
 Первый запуск импортирует доступные записи за последние 24 часа. Времена
-хранятся и возвращаются в UTC. Данные переживают перезапуск коллектора и VM,
+хранятся в UTC, а MCP возвращает их в `Europe/Kirov` (UTC+03:00). Данные переживают перезапуск коллектора и VM,
 пока доступны соответствующие записи системного журнала.
 
 `server.py` предоставляет три read-only MCP-инструмента:
@@ -22,7 +22,7 @@
 | Инструмент | Результат |
 | --- | --- |
 | `ssh_recent_logins(hours=1, limit=50)` | Список успешных SSH-аутентификаций: время, пользователь, IP, метод; общее число и признак сокращения выдачи |
-| `ssh_login_summary(hours=24)` | Общее число входов, число уникальных IP, группировка по пользователям и часам UTC |
+| `ssh_login_summary(hours=24)` | Общее число входов, число уникальных IP, группировка по пользователям и часам Europe/Kirov |
 | `ssh_collector_status()` | Время последнего сбора и границы сохранённых данных |
 
 `hours` ограничен диапазоном 1–168, `limit` — 1–100. `Accepted` подтверждает
@@ -43,10 +43,8 @@ STDIO-сервер на VM через `ssh -T yc`. Код и зависимос�
 записывается в `sessions/*.jsonl` с правами `0600`. Каталог `sessions/` не
 игнорируется Git: вместе с кодом можно сохранить полную историю демонстрации.
 В журнале остаются вопросы, ответы, IP и имена пользователей; API-ключ и
-SSH-ключ не записываются. Описание формата находится в `sessions/README.md`.
-Контрольная полная сессия сохранена в
-`sessions/20260923-195006-d3203f1c.jsonl` (15 событий, включая два запроса
-и ответа LLM, вызовы MCP и итоговый ответ).
+SSH-ключ не записываются. Ранее сохранённая контрольная сессия и её описание
+удалены по решению пользователя; новые сессии появятся при следующих запусках TUI.
 
 ## Локальные проверки
 
@@ -54,7 +52,7 @@ SSH-ключ не записываются. Описание формата на
 cd day-18
 uv sync --locked
 uv run --locked python -m unittest -v
-uv run --locked python -m compileall -q agent.py collect.py login_store.py main.py mcp_client.py server.py servers.py tool_metrics.py trace_log.py test_login_store.py test_tui.py
+uv run --locked python -m compileall -q agent.py check_mcp.py collect.py login_store.py main.py mcp_client.py server.py servers.py tool_metrics.py trace_log.py test_login_store.py test_tui.py
 uv lock --check
 ```
 
@@ -72,14 +70,20 @@ MCP и LLM. Реальный SSH-журнал и внешний API для эт�
 sudo systemctl enable --now ssh-login-collector.timer
 ```
 
-Проверка состояния на VM:
+Проверка на VM для демонстрации:
 
 ```bash
-systemctl status ssh-login-collector.timer
-systemctl status ssh-login-collector.service
+systemctl is-active ssh-login-collector.timer
+systemctl list-timers ssh-login-collector.timer --no-pager
+sudo journalctl -u ssh-login-collector.service -n 10 --no-pager
 cd /home/heimdall/ai-advent-day18
-~/.local/bin/uv run --locked --no-sync python -c 'import login_store; print(login_store.collector_status(login_store.database_path()))'
+~/.local/bin/uv run --locked --no-sync python check_mcp.py
 ```
+
+Первые три команды показывают работающий планировщик и его повторные запуски.
+`check_mcp.py` запускает локальный STDIO MCP-сервер, получает список трёх tools
+и вызывает `ssh_collector_status`. MCP-процесс работает во время подключения
+клиента, поэтому постоянно активного `ssh-login-mcp.service` в `systemd` нет.
 
 На локальной машине запустить отдельный TUI дня 18:
 
@@ -106,3 +110,8 @@ MCP-инструмента. Полный контрольный вопрос и�
 повторные запуски с новыми входами и затем с нулём новых входов. База имеет
 права `0600`. Три локальных unit/headless-теста прошли. Интерактивная
 визуальная проверка TUI и видео пока не выполнялись.
+
+После исправления часового пояса реальный MCP-вызов вернул время последнего
+входа с `+03:00`, а контрольный ответ DeepSeek показал 20:01 Europe/Kirov.
+`check_mcp.py` на VM получил три инструмента и статус сборщика; таймер был
+`active`, а журнал подтвердил очередной запуск с двумя новыми входами.
