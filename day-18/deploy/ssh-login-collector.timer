@@ -1,0 +1,11 @@
+[Unit]
+Description=Collect successful SSH authentications every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Persistent=true
+Unit=ssh-login-collector.service
+
+[Install]
+WantedBy=timers.target

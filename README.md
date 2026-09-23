@@ -22,6 +22,7 @@
 - [День 15 — контролируемые переходы состояний](day-15/README.md).
 - [День 16 — подключение к публичным MCP-серверам](day-16/README.md).
 - [День 17 — собственный MCP-инструмент документации Datex](day-17/README.md).
+- [День 18 — планировщик SSH-журнала и MCP-сводка](day-18/README.md).
 
 ## Структура
 
@@ -106,6 +107,12 @@ AI_Advent_Challenge/
 │   ├── README.md
 │   ├── corpus/
 │   ├── resources/
+│   └── ...
+├── day-18/
+│   ├── README.md
+│   ├── deploy/
+│   ├── resources/
+│   ├── sessions/
 │   └── ...
 ├── AGENTS.md
 ├── .gitignore
