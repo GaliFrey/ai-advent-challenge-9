@@ -1,0 +1,15 @@
+Screen { background: $surface; }
+#brand { height: 1; padding: 0 2; text-style: bold; color: $accent; }
+#servers { height: 5; margin: 0 2; border: round $primary; padding: 0 1; }
+#status { height: 2; padding: 0 3; color: $text-muted; }
+#workspace { height: 1fr; padding: 0 2; }
+#timeline-panel { width: 3fr; border: round $accent; }
+#detail-panel { width: 2fr; margin-left: 1; border: round $primary; }
+.panel-title { height: 1; padding: 0 1; text-style: bold; color: $accent; }
+#steps { height: 1fr; border: none; }
+#details { height: 1fr; padding: 0 1; }
+#answer-panel { height: 7; margin: 0 2; border: round $success; }
+#answer { height: 1fr; padding: 0 1; }
+#input-row { height: 3; padding: 0 2; }
+#question { width: 1fr; }
+#send { width: 14; margin-left: 1; }

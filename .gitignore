@@ -31,3 +31,7 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .venv/
+
+# Локальные результаты и полные трассы дня 20
+day-20/reports/
+day-20/sessions/
