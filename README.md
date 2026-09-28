@@ -25,6 +25,7 @@
 - [День 18 — планировщик SSH-журнала и MCP-сводка](day-18/README.md).
 - [День 19 — композиция MCP-инструментов: SSH-отчёт](day-19/README.md).
 - [День 20 — оркестрация трёх MCP-серверов](day-20/README.md).
+- [День 21 — индексация документов и сравнение разбиения](day-21/README.md).
 
 ## Структура
 
@@ -113,6 +114,19 @@ AI_Advent_Challenge/
 ├── day-18/
 │   ├── README.md
 │   ├── deploy/
+│   ├── resources/
+│   └── ...
+├── day-19/
+│   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-20/
+│   ├── README.md
+│   ├── resources/
+│   └── ...
+├── day-21/
+│   ├── README.md
+│   ├── indexer.py
 │   ├── resources/
 │   └── ...
 ├── AGENTS.md
