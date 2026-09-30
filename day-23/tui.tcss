@@ -1,0 +1,32 @@
+Screen { background: #101722; color: #dbe4f0; }
+#brand { height: 2; padding: 0 2; color: #8ed6dc; text-style: bold; background: #172232; }
+#activity { height: 4; padding: 0 2; background: #172232; }
+#busy { width: 6; height: 3; }
+#status { width: 1fr; height: 4; padding: 0 1; color: #e7c47b; text-style: bold; }
+#controls { height: 3; padding: 0 2; }
+#questions { width: 1fr; margin-right: 1; }
+Button { width: 26; margin-left: 1; }
+#custom-controls { height: 3; padding: 0 2; }
+#custom { width: 1fr; }
+#settings { height: 3; padding: 0 2; }
+#settings Label { width: auto; margin: 1 1 0 1; }
+#settings Input { width: 12; }
+#setup { height: auto; max-height: 3; padding: 0 2; color: #aebed3; }
+#question { height: auto; max-height: 4; padding: 1 2; }
+#modes { height: 1fr; }
+TabbedContent, ContentSwitcher, TabPane { height: 1fr; }
+.flow { height: auto; min-height: 2; padding: 1 2; color: #8ed6dc; }
+.workspace { height: 1fr; }
+.evidence { width: 58%; padding: 0 1; }
+.queries { height: 9; border: round #34465d; padding: 0 1; }
+DataTable { height: 2fr; min-height: 7; margin-top: 1; }
+.chunk-view { height: 1fr; min-height: 7; border: round #34465d; padding: 1; }
+.answer-view { width: 42%; border: round #8ed6dc; padding: 1 2; }
+Static { height: auto; }
+.box-title { height: 2; color: #8ed6dc; text-style: bold; }
+.metrics { margin-top: 2; color: #e7c47b; }
+#summary { padding: 1 2; }
+#comparison { height: 1fr; }
+#comparison-note { height: auto; padding: 0 2 1 2; color: #e7c47b; }
+#comparison-answers { height: 1fr; }
+.comparison-card { width: 1fr; height: 1fr; border: round #34465d; padding: 1; }
