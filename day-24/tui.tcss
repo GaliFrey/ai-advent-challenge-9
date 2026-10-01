@@ -1,0 +1,26 @@
+Screen { background: #101722; color: #dbe4f0; }
+Static { height: auto; }
+#brand { height: 2; padding: 0 2; color: #8ed6dc; text-style: bold; background: #172232; }
+#activity { height: 4; padding: 0 2; background: #172232; }
+#busy { width: 6; height: 3; }
+#status { width: 1fr; height: 4; padding: 0 1; color: #e7c47b; }
+#controls { height: 3; padding: 0 2; }
+#questions { width: 1fr; }
+Button { width: 25; margin-left: 1; }
+#custom { margin: 0 2; }
+#settings { height: 3; padding: 0 2; }
+#settings Label { width: auto; margin: 1 1 0 1; }
+#settings Input { width: 12; }
+#question { height: auto; max-height: 4; padding: 1 2; }
+#flow { height: auto; max-height: 5; padding: 0 2; color: #8ed6dc; }
+TabbedContent, ContentSwitcher, TabPane { height: 1fr; }
+.workspace { height: 1fr; }
+.answer-view { width: 65%; border: round #8ed6dc; padding: 1 2; }
+.checks-view { width: 35%; border: round #34465d; padding: 1 2; }
+.box-title { height: 2; margin-top: 1; color: #8ed6dc; text-style: bold; }
+#checks, #review { margin-bottom: 2; color: #e7c47b; }
+#query { height: auto; max-height: 7; padding: 1; }
+#chunks { height: 1fr; min-height: 7; }
+#chunk-scroll { height: 1fr; border: round #34465d; padding: 1; }
+#summary { height: 1fr; margin: 1; }
+#totals { padding: 1; }
