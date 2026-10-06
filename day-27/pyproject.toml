@@ -1,0 +1,12 @@
+[project]
+name = "ai-advent-day-27"
+version = "0.1.0"
+description = "Local Ollama chat with session memory and terminal metrics"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<0.29",
+    "textual>=8,<9",
+]
+
+[tool.uv]
+package = false
