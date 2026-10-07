@@ -1,0 +1,14 @@
+[project]
+name = "ai-advent-day-28"
+version = "0.1.0"
+description = "WebTutor MCP RAG: local and cloud comparison with shared memory"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<0.29",
+    "mcp>=1,<2",
+    "python-dotenv>=1,<2",
+    "textual>=8,<9",
+]
+
+[tool.uv]
+package = false

@@ -17,7 +17,8 @@
 Облачных клиентов, API-ключей и автоматического скачивания моделей нет.
 HTTP-прокси из окружения отключены для локального клиента.
 Ollama и веса Qwen3 из [дня 26](../day-26/README.md) перенесены
-06.10.2026 в `day-27/resources/ollama-local/`;
+06.10.2026 в каталог дня 27, а 07.10.2026 — в
+`day-28/resources/ollama-local/`. Команды ниже используют текущий путь;
 приложение не импортирует код предыдущих дней.
 
 Ответ поступает потоком NDJSON, рассуждения отображаются отдельно.
@@ -32,8 +33,8 @@ Ollama и веса Qwen3 из [дня 26](../day-26/README.md) перенесе�
 архива (нужны `curl`, `tar`, `zstd` и настроенный драйвер GPU):
 
 ```bash
-mkdir -p day-27/resources/ollama-local
-cd day-27/resources/ollama-local
+mkdir -p day-28/resources/ollama-local
+cd day-28/resources/ollama-local
 curl -fL https://ollama.com/download/ollama-linux-amd64.tar.zst -o ollama.tar.zst
 tar --zstd -xf ollama.tar.zst
 rm ollama.tar.zst
@@ -48,7 +49,7 @@ rm ollama.tar.zst
 Из корня репозитория, первый терминал:
 
 ```bash
-cd day-27/resources/ollama-local
+cd day-28/resources/ollama-local
 OLLAMA_MODELS="$PWD/models" \
 OLLAMA_CONTEXT_LENGTH=8192 \
 OLLAMA_NUM_PARALLEL=1 \
@@ -60,12 +61,12 @@ OLLAMA_KEEP_ALIVE=30m \
 Если модель ещё не скачана, во втором терминале:
 
 ```bash
-day-27/resources/ollama-local/bin/ollama pull qwen3:14b
+day-28/resources/ollama-local/bin/ollama pull qwen3:14b
 ```
 
 `serve` запускает сервер; модель загружается при первом запросе.
 `ollama list` показывает скачанные модели, `ollama ps` — только загруженные
-в память. Для видео выполните `day-27/resources/ollama-local/bin/ollama ps`
+в память. Для видео выполните `day-28/resources/ollama-local/bin/ollama ps`
 после ответа TUI. В команде выше модель остаётся загруженной 30 минут после
 запроса; перезапуск сервера очищает загрузку, а следующие запросы загрузят её снова.
 
