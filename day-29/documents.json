@@ -1,0 +1,164 @@
+{
+  "retrieved_at": "2026-10-08",
+  "sources": {
+    "distinct_datex": {
+      "ref": "datex_docs:page:5620250451197911708",
+      "title": "ArraySelectDistinct()",
+      "corpus": "datex_docs",
+      "url": "http://docs.datex.ru/article.htm?id=5620250451197911708",
+      "text": "# ArraySelectDistinct()\r\n\r\nВозвращает массив уникальных значений элементов\r\nзаданного массива.\r\n\r\n## Синтаксис\r\n\r\n```spxml\r\nArraySelectDistinct( array )\r\nArraySelectDistinct( array, elemExpr )\r\n```\r\n\r\n## Аргументы\r\n\r\n| Имя | Тип | Обязательность | Описание |\r\n| --- | --- | --- | --- |\r\n| array | object | да | Исходный массив |\r\n| elemExpr | string | нет | Выражение, вычисляемое относительно каждого элемента исходного массива и возвращающее значение поля, по которому проверяется уникальность. Если аргумент не указан, используется значение самого элемента (This). |\r\n\n\n## Опубликованный индекс: index/pages.jsonl (summary)\n\nArraySelectDistinct() Возвращает массив уникальных значений элементов заданного массива. Синтаксис ArraySelectDistinct ( array ) ArraySelectDistinct ( array, elemExpr ) Аргументы array object Исходный массив elemExpr string optional Выражение, вычисляемое относительно каждого элемента исходного массива и возвращающее значение поля, по которому проверяется уникальность. Если аргумент не указан, используется значение самого элемента (This). Смотри также ArraySelectDistinctKeys()",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/5620250451197911708.md",
+          "sourceRef": "datex_docs:page:5620250451197911708",
+          "field": "body",
+          "sha256": "925720446272a9006ac40da34b6f540eed5d7cac2b29c1590d22c32b30fe0cdc",
+          "start": 0,
+          "end": 571
+        },
+        {
+          "kind": "published_index",
+          "sourceIndex": "index/pages.jsonl",
+          "sourceRef": "datex_docs:page:5620250451197911708",
+          "field": "summary",
+          "sha256": "18028256ffe139a1ad67acfdd573c19586327d398932c2bafa845692237a0889",
+          "start": 628,
+          "end": 1109
+        }
+      ]
+    },
+    "distinct_portal": {
+      "ref": "websoft_hcm_portal_docs:page:6720973398136917966",
+      "title": "ArraySelectDistinct",
+      "corpus": "websoft_hcm_portal_docs",
+      "url": "https://docs.websoft.ru/_wt/6720973398136917966/parent_id/6717610751309335452",
+      "text": "ArraySelectDistinct\n\nДата создания: 03.08.2019\n\nВозвращает массив уникальных значений полей элементов заданного массива.\n\n## Синтаксис:\n\n      **ArraySelectDistinct (<array>[, <fieldExpr>])**\n\n## Аргументы:\n\n      *<array> (обязательный)*\n      Тип: **Массив**. Исходный массив.\n      *<fieldExpr> (необязательный)*\n      Тип: **Строка**. Строка, содержащая имя поля, по которому производится отбор уникальных значений. При формировании данного выражения может быть использован указатель *This*. Если аргумент не указан, используется значение самого элемента (*This*).\n\n## Возвращаемое значение:\n\n      Тип: **Массив**. Массив, содержащий выбранные значения. Результат действия функции.\n\n## Пример 1:\n\n*\\_query\\_str = \"for $elem in collaborators where contains($elem/fullname, 'ин') return $elem\";\n      personArray = XQuery(\\_query\\_str);\n      // personArray является массивом объектов Сотрудник, отобранных запросом. Запрос отбирает всех сотрудников, в состав фамилии, имени или отчества которых входит подстрока 'ин'.\n      // Внимание - Для больших баз данных исполнение данного запроса может потребовать некоторого времени.\n      // О формировании запросов на языке XQuery - см. [Статью 1]( /_wt/6680138390455715655) и [Статью 2]( /_wt/6728015190606705144).\n      if (ArrayCount (personArray) == 0) alert ('Объект не найден!');*\n*Array1 = ArraySelectDistinct ( personArray, 'fullname' ); // функция возвращает массив уникальных значений по полю fullname, отобранный из массива personArray\n      elemsNum = ArrayCount (Array1); // количество элементов результирующего массива\n      j=1; // переменная-счетчик для ограничения количества элементов массива\n      for ( i = 0; i < elemsNum; i++ )\n      {\n            elem = Array1 [i];\n            alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников\n\n            // ограничение количества элементов, которые выводятся на экран\n            if (j == 2) // если показано 2 элемента\n                  break; // остановить цикл\n            j=j+1;\n      }*\n*[Изображение исключено из поставки: Изображение 1]*\n[Изображение исключено из поставки: Изображение 2]\n\n*Пример 2 (аналогичен примеру 1, но с использованием указателя This):*\n\n`_query_str = \"for $elem in collaborators where contains($elem/fullname, 'ин') return $elem\";\n      personArray = XQuery(_query_str);\n      // personArray является массивом объектов Сотрудник, отобранных запросом. Запрос отбирает всех сотрудников, в состав фамилии, имени или отчества которых входит подстрока 'ин'.\n      // Внимание - Для больших баз данных исполнение данного запроса может потребовать некоторого времени.\n      if (ArrayCount (personArray) == 0) alert ('Объект не найден!');`\n\n`Array1 = ArraySelectDistinct ( personArray, 'This.fullname' ); // функция возвращает массив уникальных значений по полю fullname, отобранный из массива personArray\n      elemsNum = ArrayCount (Array1); // количество элементов результирующего массива\n      j=1; // переменная-счетчик для ограничения количества элементов массива\n      for ( i = 0; i < elemsNum; i++ )\n      {\n            elem = Array1 [i];\n            alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников\n\n            // ограничение количества элементов, которые выводятся на экран\n            if (j == 2) // если показано 2 элемента\n                  break; // остановить цикл\n            j=j+1;\n      }`\n\n*[Изображение исключено из поставки: Изображение 3]*\n[Изображение исключено из поставки: Изображение 4]\n\n*Пример 3 (в данном примере используется выражение, включающее в себя несколько полей элемента массива):*\n\n`_query_str = \"for $elem in collaborators where contains($elem/fullname, 'ин') return $elem\";\n      personArray = XQuery(_query_str);\n      // personArray является массивом объектов Сотрудник, отобранных запросом. Запрос отбирает всех сотрудников, в состав фамилии, имени или отчества которых входит подстрока 'ин'.\n      // Внимание - Для больших баз данных исполнение данного запроса может потребовать некоторого времени.\n      if (ArrayCount (personArray) == 0) alert ('Объект не найден!');`\n\n`Array1 = ArraySelectDistinct ( personArray, \" This.fullname+' ('+(This.sex=='m'?'мужчина':'женщина')+')' \" ); // функция возвращает массив уникальных значений по указанному критерию, отобранный из массива personArray\n      elemsNum = ArrayCount (Array1); // количество элементов результирующего массива\n      j=1; // переменная-счетчик для ограничения количества элементов массива\n      for ( i = 0; i < elemsNum; i++ )\n      {\n            elem = Array1 [i];\n            alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников\n\n            // ограничение количества элементов, которые выводятся на экран\n            if (j == 2) // если показано 2 элемента\n                  break; // остановить цикл\n            j=j+1;\n      }`\n\n*[Изображение исключено из поставки: Изображение 5]*\n[Изображение исключено из поставки: Изображение 6]\n\n## Дочерние темы\n\n- [Запросы XQuery](../pages/zaprosy-xquery-6728015190606705144.md)\n- [Синтаксис XQuery запросов](../pages/sintaksis-xquery-zaprosov-6680138390455715655.md)\n\n\n## Экспорт разбора: parsed/pages/6720973398136917966.json (warnings)\n\n```json\n[\n  \"Для больших баз данных исполнение данного запроса может потребовать некоторого времени. // О формировании запросов на языке XQuery - см. Статью 1 и Статью 2 . if (ArrayCount (personArray) == 0) alert ('Объект не найден!'); Array1 = ArraySelectDistinct ( personArray, 'fullname' ); // функция возвращает массив уникальных значений по полю fullname, отобранный из массива personArray elemsNum = ArrayCount (Array1); // количество элементов результирующего массива j=1; // переменная-счетчик для ограничения количества элементов массива for ( i = 0; i < elemsNum; i++ ) { elem = Array1 [i]; alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников // ограничение количества элементов, которые выводятся на экран if (j == 2) // если показано 2 элемента break; // остановить цикл j=j+1; }\",\n  \"Для больших баз данных исполнение данного запроса может потребовать некоторого времени. if (ArrayCount (personArray) == 0) alert ('Объект не найден!');\",\n  \"Array1 = ArraySelectDistinct ( personArray, 'This.fullname' ); // функция возвращает массив уникальных значений по полю fullname, отобранный из массива personArray elemsNum = ArrayCount (Array1); // количество элементов результирующего массива j=1; // переменная-счетчик для ограничения количества элементов массива for ( i = 0; i < elemsNum; i++ ) { elem = Array1 [i]; alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников // ограничение количества элементов, которые выводятся на экран if (j == 2) // если показано 2 элемента break; // остановить цикл j=j+1; }\",\n  \"Array1 = ArraySelectDistinct ( personArray, \\\" This.fullname+' ('+(This.sex=='m'?'мужчина':'женщина')+')' \\\" ); // функция возвращает массив уникальных значений по указанному критерию, отобранный из массива personArray elemsNum = ArrayCount (Array1); // количество элементов результирующего массива j=1; // переменная-счетчик для ограничения количества элементов массива for ( i = 0; i < elemsNum; i++ ) { elem = Array1 [i]; alert(elem.fullname); // возвращает полные имена всех отобранных сотрудников // ограничение количества элементов, которые выводятся на экран if (j == 2) // если показано 2 элемента break; // остановить цикл j=j+1; }\"\n]\n```",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/arrayselectdistinct-6720973398136917966.md",
+          "sourceRef": "websoft_hcm_portal_docs:page:6720973398136917966",
+          "field": "body",
+          "sha256": "2df2cd35715c4d29d8e918ce4d77b94c55b4bb3454aa19461370f4efde91bb66",
+          "start": 0,
+          "end": 5136
+        },
+        {
+          "kind": "parsed",
+          "sourceIndex": "parsed/pages/6720973398136917966.json",
+          "sourceRef": "websoft_hcm_portal_docs:page:6720973398136917966",
+          "field": "warnings",
+          "sha256": "4f379b4406a723a1ad35bf05229e6a4f18c728b2585ba571d752c252d7990ba1",
+          "encoding": "json",
+          "start": 5216,
+          "end": 7421
+        }
+      ]
+    },
+    "opt_datex": {
+      "ref": "datex_docs:page:5620250451197911701",
+      "title": "ArrayOptFirstElem()",
+      "corpus": "datex_docs",
+      "url": "http://docs.datex.ru/article.htm?id=5620250451197911701",
+      "text": "# ArrayOptFirstElem()\r\n\r\nВозвращает первый элемент заданного\r\nмассива.\r\n\r\nЕсли массив не содержит ни одного элемента, функция возвращает\r\n*undefined*.\r\n\r\nАргументы:\r\n\r\n`array` - массив\r\n\r\nРезультат:\r\n\r\n`Any`\r\n\n\n## Опубликованный индекс: index/pages.jsonl (summary)\n\nArrayOptFirstElem() Возвращает первый элемент заданного массива. Если массив не содержит ни одного элемента, функция возвращает undefined . Аргументы: array - массив Результат: Any",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/5620250451197911701.md",
+          "sourceRef": "datex_docs:page:5620250451197911701",
+          "field": "body",
+          "sha256": "adea44f375473d3e1d8404446ade543d4fed35728292b37faf36d5818f3ca011",
+          "start": 0,
+          "end": 209
+        },
+        {
+          "kind": "published_index",
+          "sourceIndex": "index/pages.jsonl",
+          "sourceRef": "datex_docs:page:5620250451197911701",
+          "field": "summary",
+          "sha256": "da1a15c9f0524f7d2cfc67ccb0c0c2241bf8a606ad40285fc65b294f17b787f8",
+          "start": 266,
+          "end": 446
+        }
+      ]
+    },
+    "opt_portal": {
+      "ref": "websoft_hcm_portal_docs:page:6720972724755374171",
+      "title": "ArrayOptFirstElem",
+      "corpus": "websoft_hcm_portal_docs",
+      "url": "https://docs.websoft.ru/_wt/6720972724755374171/parent_id/6717610751309335452",
+      "text": "ArrayOptFirstElem\r\n\r\nДата создания: 03.08.2019 (обновлено 27.02.2023)\r\n\r\nВозвращает первый элемент заданного массива или второй аргумент, если массив пустой. Если массив не содержит ни одного элемента, функция а второй аргумент отсутствует, то функция возвращает undefined . Если массив-аргумент отсутствует или не определен ( undefined ), то выдается ошибка с остановкой выполнения кода.\r\n\r\n## Синтаксис:\r\n\r\n      **ArrayOptFirstElem (<array>[, <value>])**\r\n\r\n## Аргументы:\r\n\r\n      *<array> (обязательный)*\r\n      Тип: **Массив**. Исходный массив.\r\n      *<value> (необязательный)*\r\n      Тип: **Строка, число, объект или массив**. Значение, которое возвращает функция, если из исходного массива не удалось получить первый элемент (например, если исходный массив пустой).\r\n\r\n## Возвращаемое значение:\r\n\r\n      Тип: **Элемент массива** или др. Отобранный элемент массива или значение аргумента <value>. Результат действия функции.\r\n\r\n## Пример 1:\r\n\r\n*try {*\r\n*\\_query\\_str = \"for $elem in collaborators where contains($elem/fullname, 'ин') return $elem\";\r\n            personArray = XQuery(\\_query\\_str);\r\n            // personArray является массивом объектов Сотрудник, отобранных запросом. Запрос отбирает всех сотрудников, в состав фамилии, имени или отчества которых входит подстрока 'ин'.\r\n            // Внимание - Для больших баз данных исполнение данного запроса может потребовать некоторого времени.\r\n            // О формировании запросов на языке XQuery - см. [Статью 1]( /_wt/6680138390455715655) и [Статью 2]( /_wt/6728015190606705144).* *if (ArrayCount (personArray) == 0) alert ('Объект не найден!');*\r\n*A1 = ArrayOptFirstElem ( personArray ); // функция ищет первый элемент массива\r\n            alert (A1.fullname); // возвращает ФИО первого сотрудника из массива personArray\r\n            \\_query\\_str1 = \"for $elem in collaborators where contains($elem/fullname, 'аааа') return $elem\"; // получаем пустой массив\r\n            personArray1 = XQuery(\\_query\\_str1);\r\n            A2 = ArrayOptFirstElem (personArray1); // функция ищет первый элемент массива\r\n            alert (A2); // возвращает значение undefined, так как массив personArray1 не содержит ни одного элемента. В этом случае A2 не является элементом массива.\r\n      }\r\n      catch (err){\r\n            alert ('Объект не найден!');\r\n      };*\r\n\r\n## Пример 2:\r\n\r\n*var Array1 = [1, 2, 3];\r\n      A1 = ArrayOptFirstElem ( Array1 );\r\n      alert ( A1 ); // возвращает значение 1*\r\n*A2 = ArrayOptFirstElem ( [] ); // первый аргумент - пустой массив (массив без элементов), второй аргумент отсутствует\r\n      alert (A2); // возвращает undefined\r\n      A3 = ArrayOptFirstElem ( [], {id:0} ); // первый аргумент - пустой массив, второй аргумент - объект с одним свойством {id:0}\r\n      alert (A3.id); // возвращает 0 (значение свойства id)*\r\n*A4 = ArrayOptFirstElem( [], 1 ); // выбирает из состава аргумента первый элемент массива (скалярный элемент 1)\r\n      alert (A4); // возвращает значение 1\r\n      A5 = ArrayOptFirstElem ( XQuery(\"for $obj in collaborators where $obj/fullname='Иванов Иван Иванович' return $obj\"), {id:0} ); // первый аргумент - выборка из каталога, второй аргумент - объект с одним свойством {id:0}\r\n      alert (A5.id); // возвращает значение id сотрудника, полное имя которого - 'Иванов Иван Иванович', а если такой сотрудник отсутствует, то значение 0*\r\n\r\n## Пример 3:\r\n\r\n*A1 = ArrayOptFirstElem ( undefined ); // выдается сообщение об ошибке с прерываем выполнения программного кода*\r\n\r\n## Дочерние темы\r\n\r\n- [Запросы XQuery](../pages/zaprosy-xquery-6728015190606705144.md)\r\n- [Синтаксис XQuery запросов](../pages/sintaksis-xquery-zaprosov-6680138390455715655.md)\r\n\n\n## Экспорт разбора: parsed/pages/6720972724755374171.json (warnings)\n\n```json\n[\n  \"Для больших баз данных исполнение данного запроса может потребовать некоторого времени. // О формировании запросов на языке XQuery - см. Статью 1 и Статью 2 . if (ArrayCount (personArray) == 0) alert ('Объект не найден!'); A1 = ArrayOptFirstElem ( personArray ); // функция ищет первый элемент массива alert (A1.fullname); // возвращает ФИО первого сотрудника из массива personArray _query_str1 = \\\"for $elem in collaborators where contains($elem/fullname, 'аааа') return $elem\\\"; // получаем пустой массив personArray1 = XQuery(_query_str1); A2 = ArrayOptFirstElem (personArray1); // функция ищет первый элемент массива alert (A2); // возвращает значение undefined, так как массив personArray1 не содержит ни одного элемента. В этом случае A2 не является элементом массива. } catch (err){ alert ('Объект не найден!'); };\"\n]\n```",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/arrayoptfirstelem-6720972724755374171.md",
+          "sourceRef": "websoft_hcm_portal_docs:page:6720972724755374171",
+          "field": "body",
+          "sha256": "3ee768129d54966be9fd016273dbf5150ae745fb6d4c043b4828abad90e2dadd",
+          "start": 0,
+          "end": 3663
+        },
+        {
+          "kind": "parsed",
+          "sourceIndex": "parsed/pages/6720972724755374171.json",
+          "sourceRef": "websoft_hcm_portal_docs:page:6720972724755374171",
+          "field": "warnings",
+          "sha256": "323f0cce1fbfd9d3de0e48709f3cc6e6e659a49d051e5c6f816a1c6d21d68ba3",
+          "encoding": "json",
+          "start": 3743,
+          "end": 4572
+        }
+      ]
+    },
+    "first_datex": {
+      "ref": "datex_docs:page:5620250451197911694",
+      "title": "ArrayFirstElem()",
+      "corpus": "datex_docs",
+      "url": "http://docs.datex.ru/article.htm?id=5620250451197911694",
+      "text": "# ArrayFirstElem()\r\n\r\nВозвращает первый элемент заданного\r\nмассива.\r\n\r\nЕсли массив не содержит ни одного элемента, функция завершается с\r\nисключением.\r\n\r\nАргументы:\r\n\r\n`array` - массив\r\n\r\nРезультат:\r\n\r\n`Any`\r\n",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/5620250451197911694.md",
+          "sourceRef": "datex_docs:page:5620250451197911694",
+          "field": "body",
+          "sha256": "3cac2049c7c2445cab17dd50bace0d46525d78777f189a108c59dec47eee555c",
+          "start": 0,
+          "end": 209
+        }
+      ]
+    },
+    "open_portal": {
+      "ref": "websoft_hcm_portal_docs:page:6825300336575741439",
+      "title": "open_doc",
+      "corpus": "websoft_hcm_portal_docs",
+      "url": "https://docs.websoft.ru/_wt/6825300336575741439/parent_id/6809298112856471128",
+      "text": "open\\_doc\n\nДата создания: 10.05.2020\n\nОткрывает XML-документ по указанному ID объекта и возвращает ссылку на объект типа XmlDoc . Если XML-документ, ID которого указан в аргументе, не найден, функция выдает значение undefined без прерывания выполняемого кода. См. также описание функции OpenDoc .\n\n## Синтаксис:\n\n      **tools.open\\_doc** **(<iDocID>)**\n\n## Аргументы:\n\n     *<iDocID>  (обязательный)*\n      Тип: **Целое число**. ID открываемого документа.\n\n## Возвращаемое значение:\n\n      Тип: [**Объект XmlDoc**](../pages/xmldoc-6751742522177031794.md). Ссылка на документ. Результат действия функции.\n\n## Пример 1:\n\n// Пусть в системе имеется сотрудник Васильева Людмила Петровна\n// Находим программно сотрудника Васильеву Л.П.\ntry {\n     \\_query\\_str = \"for $elem in collaborators where $elem/fullname = 'Васильева Людмила Петровна' return $elem\";\n     objArray = XQuery(\\_query\\_str);\n     // objArray является массивом объектов Сотрудник, отобранных запросом. Запрос отбирает всех сотрудников, ФИО которых имеет значение 'Васильева Людмила Петровна'\n     A1 = ArrayOptFirstElem ( objArray ); // функция возвращает первый элемент массива сотрудников objArray (в данном случае массив состоит из одного элемента)\n     alert ('Найден сотрудник: ' + A1.fullname); // на экран выводится полное имя отобранного сотрудника\n     alert ('ID найденного сотрудника: ' + A1.id); // на экран выводится идентификационный номер отобранного сотрудника\n}\n catch (err){\n     alert ('Сотрудник не найден!');\n}\ndoc = tools.open\\_doc (A1.id);\n// tools.open\\_doc – открытие XML-документа по ID и возвращение ссылки на объект\nif (doc != undefined)\n{\n     te = doc.TopElem;\n     // TopElem – переход от документа к корневому объекту документа (для обращения к атрибутам открытого документа удобно использовать специальный атрибут TopElem)\n     alert('Открыт документ объекта типа Сотрудник: ' + te.fullname);\n     // На экран выводится полное имя сотрудника, документ объекта которого открыт\n}\n[Изображение исключено из поставки: Изображение 1]\ndoc1 = tools.open\\_doc (111111); // попытка открытия документа с несуществующим ID\nif (doc1 == undefined)\n     alert (doc1); // выводится значение undefined\n[Изображение исключено из поставки: Изображение 2]\n\n## Пример 2:\n\ndCurAgent = tools.open\\_doc( iCurAgent );\n     docCourse = tools.open\\_doc(idCourse);\n\n## Дочерние темы\n\n- [OpenDoc](../pages/opendoc-6732307270307567068.md)\n- [XmlDoc](../pages/xmldoc-6751742522177031794.md)\n\n## Связанные темы\n\n- [Объект XmlDoc](../pages/xmldoc-6751742522177031794.md)\n",
+      "incomplete": false,
+      "provenance": [
+        {
+          "kind": "markdown",
+          "sourceIndex": "docs/pages/open_doc-6825300336575741439.md",
+          "sourceRef": "websoft_hcm_portal_docs:page:6825300336575741439",
+          "field": "body",
+          "sha256": "65c2d54ee70e8da417e2f57b11fd4f18847fb24b17a3d895397938f3c887311f",
+          "start": 0,
+          "end": 2537
+        }
+      ]
+    },
+    "schema": {
+      "ref": "webtutor_sql_model:object:161952fee519d73e",
+      "title": "collaborator — overview",
+      "corpus": "webtutor_sql_model",
+      "text": "{\n  \"object\": {\n    \"name\": \"collaborator\",\n    \"title\": \"Сотрудник\",\n    \"documentTable\": \"collaborator\",\n    \"catalogTable\": \"collaborators\",\n    \"confidence\": \"object_registry_and_forms\"\n  },\n  \"source\": {\n    \"corpus\": \"webtutor_sql_model\",\n    \"indexes\": [\n      \"index/objects.jsonl\",\n      \"index/object_doc_tables.jsonl\",\n      \"index/catalog_tables.jsonl\"\n    ]\n  },\n  \"section\": \"overview\",\n  \"totalCount\": 1,\n  \"returnedCount\": 1,\n  \"complete\": true,\n  \"cursor\": 0,\n  \"overview\": {\n    \"forms\": {\n      \"object\": \"x-local://wtv/wtv_collaborator.xmd\",\n      \"catalog\": \"x-local://wtv/wtv_collaborators.xmd\"\n    },\n    \"indexes\": {\n      \"fullText\": \"1\",\n      \"xml\": null\n    },\n    \"properties\": {\n      \"hasExplicitCatalog\": true,\n      \"hierarchical\": false,\n      \"parentIdField\": null,\n      \"autoCatalogTable\": \"collaborators\"\n    },\n    \"counts\": {\n      \"objectColumns\": 4,\n      \"catalogColumns\": 55,\n      \"xmlFields\": 641\n    }\n  }\n}",
+      "incomplete": false
+    }
+  }
+}

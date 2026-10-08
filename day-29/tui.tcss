@@ -1,0 +1,34 @@
+Screen { min-width: 80; }
+TabbedContent { height: 1fr; }
+Horizontal { height: auto; }
+#compare-tab { overflow-y: auto; }
+#profile-editors { height: auto; }
+.profile-editor { width: 1fr; height: auto; border: solid $primary; }
+.profile-editor Select { height: 3; }
+.parameter-row, .thinking-row, #judge-controls, #case-controls { height: 3; align-vertical: middle; }
+.parameter-row Input, .thinking-row Input { width: 1fr; }
+.profile-editor Input, .profile-editor Input:focus {
+    border-title-color: $foreground;
+    border-title-background: $surface;
+    border-title-style: bold;
+}
+Label { width: auto; margin: 1 1 0 0; }
+Select { width: 1fr; }
+Switch { width: auto; }
+#setup-hint { height: 1; }
+#result-caption { height: 2; }
+#question { height: 5; }
+#notes { height: 5; }
+#phase { height: 2; }
+#answers { height: 1fr; min-height: 8; }
+.answer-pane { width: 1fr; border: solid $primary; padding: 0 1; }
+.answer-title { text-style: bold; height: 1; }
+.profile-details { height: auto; margin-bottom: 1; }
+#before-metrics, #after-metrics { height: auto; min-height: 2; }
+#sources, #diagnostics, #ollama-state { height: 1fr; }
+#comparisons { height: 10; }
+#summary { height: 1fr; }
+#report-path { width: 1fr; }
+Screen.compact #question { height: 3; }
+Screen.compact #phase { height: 1; }
+Screen.compact Button { min-width: 10; padding: 0 1; }

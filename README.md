@@ -33,6 +33,7 @@
 - [День 26 — запуск локальной LLM](day-26/README.md).
 - [День 27 — локальная LLM в TUI-чате](day-27/README.md).
 - [День 28 — локальный WebTutor RAG и сравнение моделей](day-28/README.md).
+- [День 29 — оптимизация локальной LLM для WebTutor RAG](day-29/README.md).
 
 ## Структура
 
