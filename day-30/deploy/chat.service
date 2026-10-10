@@ -1,0 +1,27 @@
+[Unit]
+Description=Day 30 authenticated Qwen chat
+After=network-online.target ollama.service
+Wants=network-online.target ollama.service
+
+[Service]
+Type=simple
+User=day30
+Group=day30
+WorkingDirectory=/opt/ai-advent-day30
+EnvironmentFile=/etc/day30/chat.env
+ExecStart=/opt/ai-advent-day30/.venv/bin/uvicorn chat:app_factory --factory --host 127.0.0.1 --port 8000 --workers 1 --proxy-headers --forwarded-allow-ips 127.0.0.1 --no-access-log
+StateDirectory=day30
+StateDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=10
+MemoryMax=1G
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/day30
+
+[Install]
+WantedBy=multi-user.target

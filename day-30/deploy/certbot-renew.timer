@@ -1,0 +1,11 @@
+[Unit]
+Description=Check IP certificate renewal every hour
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
