@@ -18,6 +18,10 @@ def check(project, report):
     actual = [{k: v for k, v in c.items() if k != 'rag_sources'} for c in payload['changes']]
     if actual != expected:
         raise ValueError('Diff/список изменений отчёта не совпадает с Git.')
+    if 'changed_lines' in payload and payload['changed_lines'] != {
+            c['path']: {side: sorted(lines) for side, lines in c['lines'].items()}
+            for c in snapshot['changes']}:
+        raise ValueError('Допустимые строки отчёта не совпадают с Git.')
     sources = [Source(**s) for s in payload['sources']]
     direct = {s.id: s for s in snapshot['direct']}
     seen = set()

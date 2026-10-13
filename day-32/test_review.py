@@ -316,6 +316,13 @@ class RepositoryCase(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'RAG-фрагмент'):
             check(self.root, result)
 
+    def test_saved_report_rejects_fabricated_changed_lines(self):
+        snapshot, sources, answer = self.finding()
+        result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
+        result['payload']['changed_lines']['src/pitch.js']['head'] = [999]
+        with self.assertRaisesRegex(ValueError, 'Допустимые строки'):
+            check(self.root, result)
+
 
 class ProviderCase(unittest.TestCase):
     def test_exact_payload_and_one_call(self):
