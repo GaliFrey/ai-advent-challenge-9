@@ -7,6 +7,13 @@ from provider import complete
 from rag import MODEL_ID, MODEL_REVISION, retrieve
 
 
+class ValidationError(ValueError):
+    """A rejected citation with enough context to reproduce the rejection."""
+    def __init__(self, message, details):
+        super().__init__(message)
+        self.details = details
+
+
 def prepare(snapshot, model):
     retrieved, associations, count = retrieve(snapshot, model)
     sources = snapshot['direct'] + retrieved
@@ -36,7 +43,7 @@ def validate(content, snapshot, sources):
         raise ValueError('Неверный контракт ревью.')
     changed = {c['path']: c for c in snapshot['changes']}
     available = {s.id: s for s in sources}
-    for finding in value['findings']:
+    for finding_number, finding in enumerate(value['findings'], 1):
         if not isinstance(finding, dict) or set(finding) != {
                 'category', 'priority', 'file', 'side', 'line', 'description', 'evidence'}:
             raise ValueError('Неверный контракт замечания.')
@@ -52,14 +59,31 @@ def validate(content, snapshot, sources):
             raise ValueError('Замечание не относится к изменённой строке или имеет неверные поля.')
         direct_id = changed[finding['file']]['sources'].get(finding['side'])
         cited = set()
-        for evidence in finding['evidence']:
+        for evidence_number, evidence in enumerate(finding['evidence'], 1):
+            details = {'finding': finding_number, 'evidence': evidence_number,
+                       'file': finding['file'], 'side': finding['side'], 'line': finding['line']}
             if (not isinstance(evidence, dict) or set(evidence) != {'source', 'quote'}
-                    or not isinstance(evidence['source'], str)
-                    or evidence['source'] not in available
-                    or not isinstance(evidence['quote'], str)
-                    or not evidence['quote'].strip()
-                    or evidence['quote'] not in available[evidence['source']].text):
-                raise ValueError('Цитата отсутствует в указанном источнике.')
+                    or not isinstance(evidence['source'], str)):
+                raise ValidationError('Неверный контракт цитаты.', details | {'reason': 'citation_contract'})
+            source_id = evidence['source']
+            details['source'] = source_id
+            if source_id not in available:
+                raise ValidationError(
+                    f'Неизвестный источник цитаты: {json.dumps(source_id[:80], ensure_ascii=False)}.',
+                    details | {'reason': 'unknown_source'})
+            source = available[source_id]
+            details.update(source_file=source.path, source_start=source.start, source_end=source.end)
+            quote = evidence['quote']
+            if not isinstance(quote, str) or not quote.strip():
+                raise ValidationError('Цитата должна быть непустой строкой.',
+                                      details | {'reason': 'invalid_quote'})
+            if quote not in source.text:
+                details.update(reason='quote_not_found', quote=quote)
+                preview = json.dumps(quote[:240], ensure_ascii=False)
+                raise ValidationError(
+                    f'Цитата отсутствует в указанном источнике: замечание {finding_number}, '
+                    f'цитата {evidence_number}, {source_id}, '
+                    f'{source.path}:{source.start}–{source.end}; получено {preview}.', details)
             cited.add(evidence['source'])
         if direct_id not in cited:
             raise ValueError('Нет цитаты из изменённого файла на указанной стороне diff.')
@@ -72,6 +96,9 @@ def markdown(result):
            f"Merge base: `{snapshot['merge_base']}`", f"Head: `{snapshot['head']}`", '']
     if answer is None:
         out += ['**Ревью не выполнено:** ' + html.escape(result.get('error', 'retrieve-only')), '']
+        if 'rejected_response' in result:
+            out += ['Отклонённый ответ сохранён в `review.json` → `rejected_response`; '
+                    'он не является принятым ревью.', '']
     else:
         out += [html.escape(answer['summary']), '']
         for category, title in [('bug', 'Потенциальные баги'), ('architecture', 'Архитектурные проблемы'),
@@ -110,10 +137,31 @@ def run(snapshot, model, key='', llm_model='deepseek-flash', retrieve_only=False
     try:
         content, metadata = completion(payload, key, llm_model)
         result['llm'] = metadata
-        result['answer'] = validate(content, snapshot, sources)
+        try:
+            answer = validate(content, snapshot, sources)
+        except ValueError as error:
+            result['rejected_response'] = content
+            if isinstance(error, ValidationError):
+                result['validation_error'] = error.details
+            raise
+        result['answer'] = answer
         result['status'] = 'accepted'
     except (ValueError, RuntimeError) as error:
         result['error'] = str(error)
+        # The key is not sent to the model; still prevent an echoed key from
+        # appearing in newly added diagnostic fields or console messages.
+        if key:
+            for field in ('error', 'rejected_response', 'validation_error'):
+                if field in result:
+                    # A raw JSON answer or a quote preview may contain the
+                    # escaped representation of the key rather than its text.
+                    variants = {key, json.dumps(key)[1:-1], json.dumps(key, ensure_ascii=False)[1:-1]}
+                    for variant in variants:
+                        diagnostic = result[field]
+                        result[field] = (diagnostic.replace(variant, '[REDACTED]')
+                            if isinstance(diagnostic, str) else {
+                                name: value.replace(variant, '[REDACTED]') if isinstance(value, str) else value
+                                for name, value in diagnostic.items()})
     return result
 
 

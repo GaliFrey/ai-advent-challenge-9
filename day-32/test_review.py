@@ -1,10 +1,12 @@
 import json
+import io
 from pathlib import Path
 import re
 import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+from contextlib import redirect_stdout, redirect_stderr
 
 import httpx
 import numpy as np
@@ -14,6 +16,7 @@ from rag import retrieve
 from review import markdown, prepare, run, save, validate
 from snapshot import collect, revision
 from verify_report import check
+import main as cli
 
 
 class FakeTokenizer:
@@ -205,6 +208,63 @@ class RepositoryCase(unittest.TestCase):
         saved = json.loads((output / 'review.json').read_text())
         self.assertEqual(saved['status'], 'failed')
         self.assertNotIn('snapshot', saved)
+        self.assertEqual(saved['rejected_response'], 'not json')
+
+    def test_bad_quote_diagnostics_preserve_response_and_source(self):
+        snapshot, sources, answer = self.finding()
+        quote = 'export const hold = 999;\n::error::untrusted text'
+        answer['findings'][0]['evidence'][0]['quote'] = quote
+        content = json.dumps(answer)
+        result = run(snapshot, FakeModel(), completion=lambda *a: (content, {'usage': {'total_tokens': 10}}))
+        self.assertEqual(result['status'], 'failed')
+        self.assertNotIn('answer', result)
+        self.assertEqual(result['rejected_response'], content)
+        details = result['validation_error']
+        self.assertEqual((details['finding'], details['evidence'], details['source']), (1, 1, 'C2'))
+        self.assertEqual(details['source_file'], 'src/pitch.js')
+        self.assertEqual(details['quote'], quote)
+        self.assertEqual(details['reason'], 'quote_not_found')
+        self.assertNotIn('\n', result['error'])
+        save(result, self.root / 'output')
+        report = json.loads((self.root / 'output/review.json').read_text())
+        self.assertEqual(report['validation_error'], details)
+        self.assertEqual(report['rejected_response'], content)
+        self.assertIn('rejected_response', (self.root / 'output/review.md').read_text())
+
+    def test_unknown_source_diagnostics(self):
+        snapshot, sources, answer = self.finding()
+        answer['findings'][0]['evidence'][0]['source'] = 'R999'
+        result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
+        self.assertEqual(result['validation_error']['reason'], 'unknown_source')
+        self.assertEqual(result['validation_error']['source'], 'R999')
+        self.assertIn('R999', result['error'])
+
+    def test_rejected_response_redacts_key(self):
+        snapshot, sources, answer = self.finding()
+        key = 'fixture-secret-"with-quote'
+        answer['summary'] += key
+        answer['findings'][0]['evidence'][0]['quote'] = key
+        result = run(snapshot, FakeModel(), key=key, completion=lambda *a: (json.dumps(answer), {}))
+        save(result, self.root / 'output')
+        # JSON representation escapes quotation marks, so also inspect decoded fields.
+        saved = json.loads((self.root / 'output/review.json').read_text())
+        self.assertNotIn(key, saved['error'])
+        self.assertNotIn(key, saved['validation_error']['quote'])
+        self.assertNotIn(key, json.loads(saved['rejected_response'])['summary'])
+
+    def test_cli_reports_failure_reason_and_nonzero_exit(self):
+        output = self.root / 'cli-output'
+        with patch('sys.argv', ['main.py', '--project', str(self.root), '--base', self.base,
+                              '--head', self.head, '--output', str(output)]), \
+                patch('main.load_dotenv'), patch.dict('os.environ', {'DEEPSEEK_API_KEY': 'fixture-key'}), \
+                patch('main.load_model', return_value=FakeModel()), \
+                patch('main.run', return_value={'status': 'failed', 'error': 'fixture validation error'}), \
+                patch('main.save') as saved, redirect_stdout(io.StringIO()) as stdout, \
+                redirect_stderr(io.StringIO()) as stderr:
+            self.assertEqual(cli.main(), 1)
+        saved.assert_called_once()
+        self.assertIn('Статус: failed', stdout.getvalue())
+        self.assertIn('Причина: fixture validation error', stderr.getvalue())
 
     def test_markdown_escapes_html_and_persists_exact_context(self):
         snapshot, sources, answer = self.finding()

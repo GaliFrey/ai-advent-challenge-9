@@ -28,6 +28,8 @@ def main():
                      os.getenv('DEEPSEEK_MODEL', 'deepseek-flash'), args.retrieve_only)
         save(result, args.output)
         print(f"Статус: {result['status']}; отчёт: {args.output.resolve() / 'review.md'}")
+        if result['status'] == 'failed':
+            print('Причина: ' + result.get('error', 'неизвестная ошибка'), file=sys.stderr)
         return 0 if result['status'] in {'accepted', 'retrieved'} else 1
     except (ValueError, RuntimeError, OSError) as error:
         # Preflight/model failures must not leave an old successful report.
@@ -35,7 +37,7 @@ def main():
         (args.output / 'review.json').unlink(missing_ok=True)
         import html
         (args.output / 'review.md').write_text('# AI-ревью не выполнено\n\n' + html.escape(str(error)) + '\n', encoding='utf-8')
-        print('Ревью не выполнено; см. review.md.', file=sys.stderr)
+        print('Ревью не выполнено: ' + str(error) + '; см. review.md.', file=sys.stderr)
         return 1
 
 
