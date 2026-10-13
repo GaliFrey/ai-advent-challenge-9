@@ -210,26 +210,49 @@ class RepositoryCase(unittest.TestCase):
         self.assertNotIn('snapshot', saved)
         self.assertEqual(saved['rejected_response'], 'not json')
 
-    def test_bad_quote_diagnostics_preserve_response_and_source(self):
+    def test_model_quote_is_replaced_with_source_text(self):
         snapshot, sources, answer = self.finding()
         quote = 'export const hold = 999;\n::error::untrusted text'
         answer['findings'][0]['evidence'][0]['quote'] = quote
         content = json.dumps(answer)
         result = run(snapshot, FakeModel(), completion=lambda *a: (content, {'usage': {'total_tokens': 10}}))
-        self.assertEqual(result['status'], 'failed')
-        self.assertNotIn('answer', result)
-        self.assertEqual(result['rejected_response'], content)
-        details = result['validation_error']
-        self.assertEqual((details['finding'], details['evidence'], details['source']), (1, 1, 'C2'))
-        self.assertEqual(details['source_file'], 'src/pitch.js')
-        self.assertEqual(details['quote'], quote)
-        self.assertEqual(details['reason'], 'quote_not_found')
-        self.assertNotIn('\n', result['error'])
+        self.assertEqual(result['status'], 'accepted')
+        self.assertEqual(result['model_response'], content)
+        evidence = result['answer']['findings'][0]['evidence'][0]
+        self.assertEqual(evidence['source'], 'C2')
+        self.assertNotEqual(evidence['quote'], quote)
+        self.assertIn(evidence['quote'], next(s.text for s in result['sources'] if s.id == 'C2'))
         save(result, self.root / 'output')
         report = json.loads((self.root / 'output/review.json').read_text())
-        self.assertEqual(report['validation_error'], details)
-        self.assertEqual(report['rejected_response'], content)
-        self.assertIn('rejected_response', (self.root / 'output/review.md').read_text())
+        self.assertEqual(report['model_response'], content)
+        self.assertEqual(check(self.root, report), result['answer'])
+
+    def test_source_ids_only_resolve_and_include_changed_lines(self):
+        snapshot, sources, answer = self.finding()
+        for evidence in answer['findings'][0]['evidence']:
+            evidence.pop('quote')
+        result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
+        self.assertEqual(result['status'], 'accepted')
+        self.assertEqual(result['payload']['changed_lines']['src/pitch.js'], {'head': [1], 'base': [1]})
+        for evidence in result['answer']['findings'][0]['evidence']:
+            source = next(s for s in result['sources'] if s.id == evidence['source'])
+            self.assertIn(evidence['quote'], source.text)
+        self.assertEqual(check(self.root, result), result['answer'])
+
+    def test_resolved_mode_still_rejects_invalid_locations_and_wrong_side(self):
+        snapshot, sources, answer = self.finding()
+        for evidence in answer['findings'][0]['evidence']:
+            evidence.pop('quote')
+        for invalid in ('line', 'side'):
+            candidate = json.loads(json.dumps(answer))
+            if invalid == 'line':
+                candidate['findings'][0]['line'] = 2
+            else:
+                candidate['findings'][0]['evidence'][0]['source'] = 'C1'
+            result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(candidate), {}))
+            self.assertEqual(result['status'], 'failed')
+            self.assertNotIn('answer', result)
+            self.assertIn('rejected_response', result)
 
     def test_unknown_source_diagnostics(self):
         snapshot, sources, answer = self.finding()
@@ -243,13 +266,13 @@ class RepositoryCase(unittest.TestCase):
         snapshot, sources, answer = self.finding()
         key = 'fixture-secret-"with-quote'
         answer['summary'] += key
-        answer['findings'][0]['evidence'][0]['quote'] = key
+        answer['findings'][0]['evidence'][0]['source'] = key
         result = run(snapshot, FakeModel(), key=key, completion=lambda *a: (json.dumps(answer), {}))
         save(result, self.root / 'output')
         # JSON representation escapes quotation marks, so also inspect decoded fields.
         saved = json.loads((self.root / 'output/review.json').read_text())
         self.assertNotIn(key, saved['error'])
-        self.assertNotIn(key, saved['validation_error']['quote'])
+        self.assertNotIn(key, saved['validation_error']['source'])
         self.assertNotIn(key, json.loads(saved['rejected_response'])['summary'])
 
     def test_cli_reports_failure_reason_and_nonzero_exit(self):
@@ -280,7 +303,7 @@ class RepositoryCase(unittest.TestCase):
     def test_saved_report_revalidated_against_git(self):
         snapshot, sources, answer = self.finding()
         result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
-        self.assertEqual(check(self.root, result), answer)
+        self.assertEqual(check(self.root, result), result['answer'])
         result['payload']['changes'][0]['diff'] += 'invented change'
         with self.assertRaisesRegex(ValueError, 'Diff'):
             check(self.root, result)

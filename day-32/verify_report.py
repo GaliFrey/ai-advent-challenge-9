@@ -40,7 +40,12 @@ def check(project, report):
                 raise ValueError('RAG-фрагмент отсутствует в указанном диапазоне Git-снимка.')
     if not set(direct).issubset(seen):
         raise ValueError('В отчёте отсутствуют изменённые файлы.')
-    return validate(json.dumps(report['answer']), snapshot, sources)
+    answer = validate(json.dumps(report['answer']), snapshot, sources)
+    if 'model_response' in report:
+        resolved = validate(report['model_response'], snapshot, sources, resolve_quotes=True)
+        if resolved != answer:
+            raise ValueError('Сохранённое ревью не совпадает с ответом модели и разрешёнными источниками.')
+    return answer
 
 
 def main():

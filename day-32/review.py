@@ -22,7 +22,9 @@ def prepare(snapshot, model):
                    {k: v for k, v in change.items() if k != 'lines'} |
                    {'rag_sources': associations[change['path']]}
                    for change in snapshot['changes']],
-               'sources': [s.payload() for s in sources]}
+               'sources': [s.payload() for s in sources],
+               'changed_lines': {c['path']: {side: sorted(lines) for side, lines in c['lines'].items()}
+                                 for c in snapshot['changes']}}
     # Bound total request data before making a paid call.
     if len(json.dumps(payload, ensure_ascii=False).encode()) > 300_000:
         raise ValueError('Контекст больше 300 КБ; ревью остановлено без усечения.')
@@ -31,7 +33,7 @@ def prepare(snapshot, model):
                              'retrieved': len(retrieved), 'associations': associations}
 
 
-def validate(content, snapshot, sources):
+def validate(content, snapshot, sources, *, resolve_quotes=False):
     try:
         value = json.loads(content)
     except (ValueError, TypeError):
@@ -62,7 +64,8 @@ def validate(content, snapshot, sources):
         for evidence_number, evidence in enumerate(finding['evidence'], 1):
             details = {'finding': finding_number, 'evidence': evidence_number,
                        'file': finding['file'], 'side': finding['side'], 'line': finding['line']}
-            if (not isinstance(evidence, dict) or set(evidence) != {'source', 'quote'}
+            allowed = ({'source'}, {'source', 'quote'}) if resolve_quotes else ({'source', 'quote'},)
+            if (not isinstance(evidence, dict) or set(evidence) not in allowed
                     or not isinstance(evidence['source'], str)):
                 raise ValidationError('Неверный контракт цитаты.', details | {'reason': 'citation_contract'})
             source_id = evidence['source']
@@ -73,7 +76,19 @@ def validate(content, snapshot, sources):
                     details | {'reason': 'unknown_source'})
             source = available[source_id]
             details.update(source_file=source.path, source_start=source.start, source_end=source.end)
-            quote = evidence['quote']
+            if resolve_quotes:
+                # The model chooses a source, never an authoritative quote.
+                # Copy context from the supplied immutable source ourselves.
+                quote = source.text
+                if source.kind in ('base', 'head'):
+                    lines = source.text.splitlines(keepends=True)
+                    candidates = changed.get(source.path, {}).get('lines', {}).get(source.kind, set())
+                    line = min(candidates, key=lambda n: abs(n - finding['line'])) if candidates else finding['line']
+                    index = max(0, min(line - source.start, len(lines) - 1))
+                    quote = ''.join(lines[max(0, index - 1):index + 2])
+                finding['evidence'][evidence_number - 1] = {'source': source_id, 'quote': quote}
+            else:
+                quote = evidence['quote']
             if not isinstance(quote, str) or not quote.strip():
                 raise ValidationError('Цитата должна быть непустой строкой.',
                                       details | {'reason': 'invalid_quote'})
@@ -137,8 +152,9 @@ def run(snapshot, model, key='', llm_model='deepseek-flash', retrieve_only=False
     try:
         content, metadata = completion(payload, key, llm_model)
         result['llm'] = metadata
+        result['model_response'] = content
         try:
-            answer = validate(content, snapshot, sources)
+            answer = validate(content, snapshot, sources, resolve_quotes=True)
         except ValueError as error:
             result['rejected_response'] = content
             if isinstance(error, ValidationError):
@@ -151,7 +167,7 @@ def run(snapshot, model, key='', llm_model='deepseek-flash', retrieve_only=False
         # The key is not sent to the model; still prevent an echoed key from
         # appearing in newly added diagnostic fields or console messages.
         if key:
-            for field in ('error', 'rejected_response', 'validation_error'):
+            for field in ('error', 'model_response', 'rejected_response', 'validation_error'):
                 if field in result:
                     # A raw JSON answer or a quote preview may contain the
                     # escaped representation of the key rather than its text.
