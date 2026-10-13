@@ -1,0 +1,90 @@
+# Install as .github/workflows/ai-review.yml in GaliFrey/guitar-trainer.
+name: AI review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # No API keys for forks; drafts do not consume paid API calls.
+    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      REVIEWER_REF: ${{ vars.AI_REVIEWER_REF }}
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - name: Validate pinned reviewer version
+        shell: bash
+        run: |
+          if [[ ! "$REVIEWER_REF" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'Set repository variable AI_REVIEWER_REF to the published day-32 commit SHA.'
+            exit 1
+          fi
+
+      - name: Checkout reviewed repository as data
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          path: project
+
+      - name: Checkout trusted reviewer
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: GaliFrey/ai-advent-challenge-9
+          ref: ${{ env.REVIEWER_REF }}
+          persist-credentials: false
+          path: reviewer
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: '0.12.19'
+          python-version: '3.12'
+          enable-cache: false
+
+      - name: Install locked reviewer dependencies
+        working-directory: reviewer/day-32
+        run: uv sync --locked
+
+      - name: Review PR with RAG and DeepSeek
+        working-directory: reviewer/day-32
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          uv run --locked python main.py \
+            --project "$GITHUB_WORKSPACE/project" \
+            --base "$BASE_SHA" --head "$HEAD_SHA" \
+            --output "$GITHUB_WORKSPACE/report"
+
+      - name: Show review in job summary
+        if: always()
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/report/review.md" ]]; then
+            cat "$GITHUB_WORKSPACE/report/review.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'AI review did not run. See failed setup step.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload review and exact RAG context
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ai-review-${{ github.event.pull_request.number }}-${{ github.event.pull_request.head.sha }}
+          path: report/
+          if-no-files-found: ignore
+          retention-days: 7

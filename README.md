@@ -36,6 +36,7 @@
 - [День 29 — оптимизация локальной LLM для WebTutor RAG](day-29/README.md).
 - [День 30 — публичный чат с локальной LLM на ВМ](day-30/README.md).
 - [День 31 — ассистент разработчика для Guitar Trainer](day-31/README.md).
+- [День 32 — автоматическое ревью PR Guitar Trainer](day-32/README.md).
 
 ## Структура
 

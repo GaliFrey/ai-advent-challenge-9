@@ -1,0 +1,22 @@
+[project]
+name = "ai-advent-day-32"
+version = "0.1.0"
+description = "PR review with documentation/code RAG and DeepSeek"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28,<0.29",
+    "python-dotenv>=1,<2",
+    "sentence-transformers>=5.1,<6",
+    "torch>=2.10,<3",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
