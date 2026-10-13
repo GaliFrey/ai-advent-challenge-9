@@ -12,7 +12,8 @@ import numpy as np
 from provider import complete
 from rag import retrieve
 from review import markdown, prepare, run, save, validate
-from snapshot import collect, revision, MAX_DIFF
+from snapshot import collect, revision
+from verify_report import check
 
 
 class FakeTokenizer:
@@ -215,6 +216,22 @@ class RepositoryCase(unittest.TestCase):
         saved = json.loads((self.root / 'output/review.json').read_text())
         self.assertEqual(saved['payload']['head'], self.head)
         self.assertNotIn('DEEPSEEK_API_KEY', json.dumps(saved))
+
+    def test_saved_report_revalidated_against_git(self):
+        snapshot, sources, answer = self.finding()
+        result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
+        self.assertEqual(check(self.root, result), answer)
+        result['payload']['changes'][0]['diff'] += 'invented change'
+        with self.assertRaisesRegex(ValueError, 'Diff'):
+            check(self.root, result)
+
+    def test_saved_report_rejects_fabricated_rag_text(self):
+        snapshot, sources, answer = self.finding()
+        result = run(snapshot, FakeModel(), completion=lambda *a: (json.dumps(answer), {}))
+        source = next(s for s in result['payload']['sources'] if s['id'].startswith('R'))
+        source['text'] = 'fabricated source fragment'
+        with self.assertRaisesRegex(ValueError, 'RAG-фрагмент'):
+            check(self.root, result)
 
 
 class ProviderCase(unittest.TestCase):
