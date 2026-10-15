@@ -1,0 +1,292 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #14161a;
+  color: #e8eaed;
+}
+
+.tuner {
+  width: 520px;
+  padding: 32px;
+  background: #1c1f24;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 24px;
+}
+
+.status {
+  margin: 0 0 12px;
+  color: #9aa0a6;
+}
+
+.start {
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #4c8bf5;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.start:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.strings {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.string {
+  flex: 1;
+  padding: 12px 4px;
+  text-align: center;
+  border-radius: 10px;
+  background: #262a31;
+  border: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.string .note {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.string .role {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #9aa0a6;
+}
+
+.string.active {
+  background: #2f4b7c;
+  border-color: #4c8bf5;
+}
+
+.reading {
+  min-height: 40px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.direction,
+.cents {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.cents.flat {
+  color: #f5c04c;
+}
+
+.cents.sharp {
+  color: #f56c6c;
+}
+
+.tuned {
+  margin: 12px 0 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #5ad07a;
+}
+
+.hint {
+  margin: 12px 0 0;
+  font-size: 18px;
+  color: #9aa0a6;
+}
+
+/* Панель «Помощь». Оформление не влияет на работу тюнера. */
+
+.support-open {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 24px;
+  background: #4c8bf5;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.support-panel {
+  box-sizing: border-box;
+  position: fixed;
+  right: 20px;
+  bottom: 84px;
+  width: 414px;
+  max-width: calc(100vw - 40px);
+  max-height: min(70vh, 640px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #1c1f24;
+  border: 1px solid #2c313a;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* Reserve the full status/form height; only the transcript may shrink. */
+.support-header,
+.support-notice,
+.support-status,
+.support-form {
+  flex-shrink: 0;
+}
+
+.support-panel[hidden] {
+  display: none;
+}
+
+.support-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.support-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.support-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.support-actions button,
+.support-form-actions button {
+  padding: 6px 10px;
+  border: 1px solid #3a404b;
+  border-radius: 8px;
+  background: #262a31;
+  color: #e8eaed;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.support-notice {
+  margin: 12px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #3a2f12;
+  color: #f5c04c;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.support-messages {
+  flex: 1;
+  min-height: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.support-message {
+  flex-shrink: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #262a31;
+}
+
+.support-message-user {
+  background: #2f4b7c;
+}
+
+.support-role {
+  display: block;
+  font-size: 11px;
+  color: #9aa0a6;
+  margin-bottom: 4px;
+}
+
+.support-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.support-message pre {
+  overflow-x: auto;
+  font-size: 11px;
+  color: #c8ccd2;
+}
+
+.support-error {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #f56c6c;
+}
+
+.support-status {
+  min-height: 18px;
+  margin: 10px 0;
+  font-size: 12px;
+  color: #9aa0a6;
+  overflow-wrap: anywhere;
+}
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.support-input {
+  resize: vertical;
+  padding: 8px;
+  border: 1px solid #3a404b;
+  border-radius: 8px;
+  background: #14161a;
+  color: #e8eaed;
+  font: inherit;
+}
+
+.support-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+
+.support-source summary {
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.support-source pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+}
