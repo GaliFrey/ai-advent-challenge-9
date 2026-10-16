@@ -38,6 +38,7 @@
 - [День 31 — ассистент разработчика для Guitar Trainer](day-31/README.md).
 - [День 32 — автоматическое ревью PR Guitar Trainer](day-32/README.md).
 - [День 33 — AI-поддержка Guitar Trainer с RAG и MCP](day-33/README.md).
+- [День 34 — веб-ассистент для изменения frontend Guitar Trainer](day-34/README.md).
 
 ## Структура
 

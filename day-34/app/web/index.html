@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тюнер для 6-струнной гитары</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="tuner">
+    <h1>Тюнер для 6-струнной гитары</h1>
+    <p class="status" id="status">Включите микрофон и дёрните струну.</p>
+    <button class="start" id="start" type="button">Включить микрофон</button>
+
+    <ul class="strings" id="strings">
+      <li class="string" data-note="E2"><span class="note">E2</span><span class="role">6-я струна</span></li>
+      <li class="string" data-note="A2"><span class="note">A2</span><span class="role">5-я струна</span></li>
+      <li class="string" data-note="D3"><span class="note">D3</span><span class="role">4-я струна</span></li>
+      <li class="string" data-note="G3"><span class="note">G3</span><span class="role">3-я струна</span></li>
+      <li class="string" data-note="B3"><span class="note">B3</span><span class="role">2-я струна</span></li>
+      <li class="string" data-note="E4"><span class="note">E4</span><span class="role">1-я струна</span></li>
+    </ul>
+
+    <div class="reading">
+      <span class="direction" id="direction"></span>
+      <span class="cents" id="cents"></span>
+    </div>
+
+    <p class="tuned" id="tuned" hidden>настроено</p>
+    <p class="hint" id="hint">дёрните струну</p>
+  </main>
+
+  <button class="support-open" id="support-open" type="button" aria-haspopup="dialog" aria-controls="support-panel">Помощь</button>
+
+  <section class="support-panel" id="support-panel" role="dialog" aria-label="Панель помощи" hidden>
+    <header class="support-header">
+      <h2>Помощь</h2>
+      <div class="support-actions">
+        <button id="support-new" type="button">Новый разговор</button>
+        <button id="support-close" type="button">Закрыть</button>
+      </div>
+    </header>
+
+    <p class="support-notice" id="support-notice">Ответы формирует DeepSeek. Сообщения, история текущего обращения и состояние тюнера передаются во внешний AI-сервис. Аудиозапись не отправляется. AI может ошибаться.</p>
+
+    <ol class="support-messages" id="support-messages"></ol>
+
+    <p class="support-status" id="support-status" role="status"></p>
+
+    <form class="support-form" id="support-form">
+      <textarea
+        id="support-input"
+        class="support-input"
+        rows="3"
+        maxlength="4000"
+        placeholder="Опишите проблему. Enter — отправить, Shift+Enter — новая строка."
+      ></textarea>
+      <div class="support-form-actions">
+        <button id="support-send" type="submit">Отправить</button>
+        <button id="support-retry" type="button" hidden>Повторить</button>
+      </div>
+    </form>
+  </section>
+
+  <button class="assistant-open" id="assistant-open" type="button" aria-haspopup="dialog" aria-controls="assistant-panel">Ассистент разработки</button>
+
+  <section class="assistant-panel" id="assistant-panel" role="dialog" aria-label="Ассистент разработки" hidden>
+    <header class="assistant-header">
+      <h2>Ассистент разработки</h2>
+      <div class="assistant-actions">
+        <button id="assistant-new" type="button">Новая переписка</button>
+        <button id="assistant-close" type="button">Закрыть</button>
+      </div>
+    </header>
+
+    <p class="assistant-notice" id="assistant-notice">Серверный агент DeepSeek читает и изменяет только разрешённые frontend-файлы этого проекта. Содержимое прочитанных файлов передаётся во внешний AI-сервис. Ключ DeepSeek в браузер не попадает. Commit, push и установка зависимостей не выполняются.</p>
+
+    <ol class="assistant-messages" id="assistant-messages"></ol>
+
+    <p class="assistant-status" id="assistant-status" role="status"></p>
+
+    <form class="assistant-form" id="assistant-form">
+      <textarea
+        id="assistant-input"
+        class="assistant-input"
+        rows="3"
+        maxlength="4000"
+        placeholder="Опишите цель изменения обычным языком. Enter — отправить, Shift+Enter — новая строка."
+      ></textarea>
+      <div class="assistant-form-actions">
+        <button id="assistant-send" type="submit">Выполнить</button>
+        <button id="assistant-retry" type="button" hidden>Повторить</button>
+      </div>
+    </form>
+  </section>
+
+  <script type="module" src="./src/app.js"></script>
+  <script type="module" src="./src/support.js"></script>
+  <script type="module" src="./src/assistant.js"></script>
+</body>
+</html>
