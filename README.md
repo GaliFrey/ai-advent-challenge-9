@@ -39,6 +39,7 @@
 - [День 32 — автоматическое ревью PR Guitar Trainer](day-32/README.md).
 - [День 33 — AI-поддержка Guitar Trainer с RAG и MCP](day-33/README.md).
 - [День 34 — веб-ассистент для изменения frontend Guitar Trainer](day-34/README.md).
+- [День 35 — личный AI-ассистент в Telegram](day-35/README.md).
 
 ## Структура
 
